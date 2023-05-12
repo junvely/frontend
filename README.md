@@ -1,6 +1,7 @@
 ### 패키지 설치
 
 ```
+yarn add styled-components
 yarn add react-query
 yarn add react-router-dom
 yarn add axios
@@ -44,6 +45,17 @@ module.exports = {
 
 ```
 import "tailwindcss/tailwind.css";
+```
+
+## 📌 nodemon
+
+node server.js로 서버를 실행하면 작업할 때 페이지에 자동으로 업데이트가 반영되지 않기 때문에 불편하다.
+nodemon으로 실행하면 저장할 때마다 페이지에 반영이 된다.
+
+```
+설치 : npm install nodemon -g
+글로벌로 설치하면 다른 디렉토리에서도 사용할 수 있다.
+실행 : nodemon server.js
 ```
 
 ## ✅ Commit Convention
