@@ -1,8 +1,12 @@
+import Router from "./shared/Router";
+import { GlobalStyles } from "./styles/GlobalStyles";
+
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl bg-red-700">가나다라</h1>
-    </div>
+    <>
+      <GlobalStyles />
+      <Router></Router>
+    </>
   );
 }
 
