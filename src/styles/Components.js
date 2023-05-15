@@ -1,10 +1,5 @@
 import { styled } from "styled-components";
-import { Colors } from "./GlobalStyles";
-
-export const StLabel = styled.label`
-  font-size: 0.9rem;
-  padding: 1% 0;
-`;
+import { Colors, StFlexAll, StFlexCon } from "./GlobalStyles";
 
 export const StInput = styled.input`
   width: 100%;
@@ -23,6 +18,22 @@ export const StInput = styled.input`
 export const StValidation = styled.span`
   font-size: 0.8rem;
   color: ${Colors.buttonBlue};
+`;
+
+//Signup
+export const StLabel = styled.label`
+  font-size: 0.9rem;
+  padding: 1% 0;
+`;
+
+export const StProfile = styled.div`
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  box-shadow: ${Colors.shadow2};
+  background: ${(props) => `url(${props.image}) no-repeat 50% /cover`};
 `;
 
 export const StButton = styled.button`
@@ -50,7 +61,6 @@ export const StLinkCon = styled.div`
   }
 `;
 
-// Signup
 export const StImageUpload = styled.div`
   padding: 5%;
   margin-bottom: 3%;
@@ -63,4 +73,106 @@ export const StImageUpload = styled.div`
   }
 `;
 
-// Login
+// Story
+export const StStory = styled(StFlexAll)`
+  width: ${(props) => props.width};
+  height: ${(props) => props.width};
+  background: linear-gradient(to right, #ffb300, #ff1459, #d400c1);
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border: 2.5px solid #fff;
+    border-radius: 50%;
+  }
+`;
+
+// Feed
+export const StFeedTitle = styled(StFlexCon)`
+  align-items: center;
+  padding: 8px 0;
+
+  svg,
+  i {
+    cursor: pointer;
+  }
+`;
+
+export const StUserInfo = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  a {
+    padding: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+  }
+`;
+
+export const StPhoto = styled.div`
+  width: 100%;
+  min-height: 585px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+`;
+
+export const StButtons = styled(StFlexCon)`
+  button {
+    background-color: transparent;
+    padding: 8px 16px 8px 0;
+    border: none;
+    cursor: default;
+    transition: all 0.3s;
+
+    &:active {
+      transform: scale(1.2);
+    }
+
+    svg,
+    i {
+      color: #222;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  }
+`;
+
+export const StLeftCon = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  font-size: 24px;
+  padding-top: 6px;
+`;
+
+export const StContent = styled.div`
+  padding-bottom: 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 19px;
+
+  span {
+    color: #333;
+    display: block;
+    padding: 3px 0;
+    cursor: pointer;
+  }
+
+  p {
+    color: #777;
+    padding: 2px 0 4px;
+    cursor: pointer;
+  }
+`;

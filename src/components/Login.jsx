@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { StButton, StLinkCon } from "../styles/Components";
 import Input from "./Input";
-import { useForm } from "./hooks/useForm";
+import { useForm } from "../hooks/useForm";
 import { useMutation } from "react-query";
 import { signupAxios } from "../apis/auth/signup";
 
