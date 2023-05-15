@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Router></Router>;
+      <Router></Router>
     </>
   );
 }

@@ -29,7 +29,22 @@
       "userPhoto": ""
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "users": [
+    {
+      "email": "test@test.com",
+      "password": "test1234",
+      "name": "test",
+      "nickname": "test",
+      "userPhoto": "",
+      "id": 1
+    },
+    {
+      "email": "test@test.com",
+      "password": "test1234",
+      "name": "test",
+      "nickname": "test",
+      "userPhoto": "",
+      "id": 2
+    }
+  ]
 }
