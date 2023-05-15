@@ -2,6 +2,7 @@ import { createGlobalStyle, styled } from "styled-components";
 
 //colors
 export const Colors = {
+  buttonActiveBlue: "#0083da",
   buttonBlue: "#4cb4f8",
   borderGrey: "#fafafa",
   shadow: "0 2px 3px rgba(0, 0, 0, 0.19)",

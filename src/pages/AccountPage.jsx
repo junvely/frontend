@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { StAccountCon, StFormCon } from "../styles/Pages";
-import { StFlexAll, Stwrap } from "../styles/GlobalStyles";
 
 function AccountPage() {
   return (

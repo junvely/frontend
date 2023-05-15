@@ -20,6 +20,11 @@ export const StInput = styled.input`
   }
 `;
 
+export const StValidation = styled.span`
+  font-size: 0.8rem;
+  color: ${Colors.buttonBlue};
+`;
+
 export const StButton = styled.button`
   width: 100%;
   line-height: 2rem;
@@ -27,7 +32,7 @@ export const StButton = styled.button`
   font-weight: 700;
   color: #fff;
   margin-top: 10px;
-  background-color: ${Colors.buttonBlue};
+  background-color: ${(props) => props.bgcolor || Colors.buttonBlue};
   border: none;
   border-radius: 7px;
   box-shadow: ${Colors.shadow};

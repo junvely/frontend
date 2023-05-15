@@ -1,15 +1,17 @@
 import React from "react";
-import { StInput } from "../styles/Components";
+import { StInput, StValidation } from "../styles/Components";
 
-function Input({ type, children, name, value, placeHolder, onClick }) {
+function Input({ type, name, value, placeHolder, onChange, message }) {
   return (
     <>
       <StInput
+        name={name}
         type={type}
         value={value}
         placeholder={placeHolder}
-        onClick={onClick}
+        onChange={onChange}
       ></StInput>
+      <StValidation>{message}</StValidation>
     </>
   );
 }
