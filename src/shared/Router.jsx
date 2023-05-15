@@ -6,7 +6,7 @@ import MyPage from "../pages/MyPage";
 import UserPage from "../pages/UserPage";
 import AccountPage from "../pages/AccountPage";
 import Login from "../components/Login";
-import Signup from "../components/Signup.jsx";
+import Signup from "../components/Signup";
 
 function Router() {
   return (
