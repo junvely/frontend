@@ -1,14 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { StButton, StLinkCon } from "../styles/Components";
 import Input from "./Input";
-import { useForm } from "./hooks/useForm";
+import { useForm } from "../hooks/useForm";
 import { useMutation } from "react-query";
-import { signupAxios } from "../apis/auth/signup";
+import { loginAxios } from "../apis/auth/login";
+import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();
-  const mutation = useMutation(signupAxios, {
+  const mutation = useMutation(loginAxios, {
     onSuccess: () => {
+      alert("로그인 성공");
       resetForm();
       navigate("/main");
     },
@@ -26,8 +28,15 @@ function Login() {
       alert("아이디와 패스워드를 모두 입력해주세요.");
       return;
     }
-    mutation(form);
+    mutation.mutate(form);
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("accessToken")) {
+      alert("이미 로그인 된 회원입니다.");
+      navigate("/main");
+    }
+  });
 
   return (
     <>
@@ -39,7 +48,7 @@ function Login() {
         onChange={handleFormChange}
       />
       <Input
-        type="text"
+        type="password"
         name="password"
         value={password}
         placeHolder="비밀번호"

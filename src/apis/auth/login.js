@@ -1,18 +1,18 @@
-import { instance, verifyInstance } from "../axios";
+import { instance } from "../axios";
 
 const loginAxios = async (payload) => {
   try {
-    await instance.post("/api/login", payload);
-    alert("로그인 성공");
+    const { data } = await instance.post("/api/login", payload);
+    return data;
   } catch (error) {
-    alert(error.errorMessage);
+    // alert(error.errorMessage);
     throw error;
   }
 };
 
 const tokenVerifyAxios = async () => {
   try {
-    await verifyInstance.post("/api/verify");
+    await instance.post("/api/verify");
   } catch (error) {
     throw error;
   }
