@@ -6,6 +6,7 @@ import profileimg from "../img/profile.png";
 import Comments from "../components/Comments";
 import { commentSubmit, detailRequest } from "../apis/api";
 import { useParams } from "react-router";
+import { useQuery } from "react-query";
 
 function DetailPage() {
   const authorization = sessionStorage.getItem("accessToken");
@@ -58,9 +59,9 @@ function DetailPage() {
               </FollowBtn>
             )}
           </UserInfo>
-          <PostContent image={data.postPhoto}>
+          <PostContent /* image={data.postPhoto} */>
             <UserInfo>
-              <UserImage image={data.userPhoto} />
+              <UserImage /* image={data.userPhoto} */ />
               <span>{data.nickname}</span>
             </UserInfo>
             <p>{data.content}</p>
@@ -108,7 +109,7 @@ const Container = styled.div`
 
 // PostImage 컴포넌트
 const PostImage = styled.div`
-  background-image: url(${image});
+  background-image: url(${postimg});
   background-size: cover;
   background-position: center;
   width: 60%;
@@ -138,7 +139,7 @@ const UserInfo = styled.div`
   }
 `;
 const UserImage = styled.div`
-  background-image: url(${image});
+  background-image: url(${profileimg});
   background-size: cover;
   background-position: center;
   width: 40px;

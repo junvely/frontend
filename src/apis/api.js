@@ -4,7 +4,7 @@ import axios from "axios";
 const detailRequest = async ({ postId, authorization }) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/main/${postId}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/posts/${postId}`,
       {
         headers: {
           Authorization: `${authorization}`,
@@ -22,7 +22,7 @@ const detailRequest = async ({ postId, authorization }) => {
 const commentRequest = async (postId) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/main/${postId}/comments`
+      `${process.env.REACT_APP_SERVER_URL}/api/posts/${postId}/comments`
     );
     console.log(response.data);
     return response.data;
@@ -34,7 +34,7 @@ const commentRequest = async (postId) => {
 const commentSubmit = async ({ postId, comment, authorization }) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/main/${postId}/comments`,
+      `${process.env.REACT_APP_SERVER_URL}/api/posts/${postId}/comments`,
       { comment },
       {
         headers: {
@@ -53,7 +53,7 @@ const commentDelete = async ({ postId, commentId, authorization }) => {
   console.log(commentId, authorization);
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}/api/main/${postId}/comments/${commentId}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/posts/${postId}/comments/${commentId}`,
       {
         headers: {
           Authorization: `${authorization}`,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 import { commentRequest, commentDelete } from "../apis/api";
 import commentprofile from "../img/comment.png";
 import { QueryClient, useMutation } from "react-query";
