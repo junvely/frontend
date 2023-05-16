@@ -1,20 +1,19 @@
 import React from "react";
 import {
-  StFeed,
   StFeedCon,
   StFeedList,
   StInnerCon,
   StMainCon,
-  StRecommand,
   StRecommandCon,
   StSideCon,
-  StStory,
   StStoryBox,
   StStoryList,
 } from "../styles/Pages";
 import { StFlexCon } from "../styles/GlobalStyles";
 import Story from "../components/Story";
 import Feed from "../components/Feed";
+import { useQuery } from "react-query";
+import { getMainPostsAxios } from "../apis/feed";
 
 function MainPage() {
   // const { isLoading, isError, data } = useQuery("posts", getMainPostsAxios);

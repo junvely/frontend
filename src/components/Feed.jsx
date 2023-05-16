@@ -64,7 +64,7 @@ function Feed({}) {
       </StPhoto>
       <StButtons>
         <StLeftCon>
-          {post.isLiked ? (
+          {post?.isLiked ? (
             <button>
               <MdFavorite
                 style={{ color: "#ff3040", fontSize: "28px" }}

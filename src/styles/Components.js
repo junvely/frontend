@@ -28,7 +28,10 @@ export const StLabel = styled.label`
 
 export const StProfile = styled.div`
   width: 100px;
-  height: 100px;
+  line-height: 100px;
+  font-size: 0.7rem;
+  text-align: center;
+  color: #ccc;
   margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 50%;
@@ -37,7 +40,7 @@ export const StProfile = styled.div`
 `;
 
 export const StButton = styled.button`
-  width: 100%;
+  width: ${(props) => props.width || "100%"};
   line-height: 2rem;
   font-size: 14px;
   font-weight: 700;
@@ -70,6 +73,21 @@ export const StImageUpload = styled.div`
 
   input {
     padding-top: 3%;
+  }
+`;
+
+export const StEmailChecking = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  input {
+    width: 75%;
+  }
+
+  button {
+    width: 20%;
+    margin: 0;
   }
 `;
 
