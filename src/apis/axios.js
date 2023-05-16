@@ -19,6 +19,7 @@ instance.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
   const accessToken = sessionStorage.getItem("accessToken");
   config.headers["accessToken"] = accessToken;
+  return config;
 });
 
 // 토큰 verify instance
@@ -28,6 +29,7 @@ verifyInstance.interceptors.request.use((config) => {
   const userId = sessionStorage.getItem("userId");
   config.headers["refreshToken"] = refreshToken;
   config.headers["userId"] = userId;
+  return config;
 });
 
 instance.interceptors.response.use(
