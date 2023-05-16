@@ -4,9 +4,13 @@ import { postAdd } from "../apis/post";
 import { styled } from "styled-components";
 import { IoArrowBack } from "react-icons/io5";
 
-function PostingModal() {
+function PostingModal({ setModal }) {
   const token = sessionStorage.getItem("accessToken");
   const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
 
   const closeModal = () => {
     setModal(false);
