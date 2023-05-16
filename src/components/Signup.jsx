@@ -1,21 +1,25 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Input from "./Input";
-import {
-  StButton,
-  StImageUpload,
-  StLabel,
-  StLinkCon,
-} from "../styles/Components";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "./hooks/useForm.js";
+import { useForm } from "../hooks/useForm.js";
 import { Colors } from "../styles/GlobalStyles";
 import { signupAxios } from "../apis/auth/signup";
 import { useMutation } from "react-query";
+import {
+  StButton,
+  StEmailChecking,
+  StImageUpload,
+  StLabel,
+  StLinkCon,
+  StProfile,
+} from "../styles/Components";
+import { useFileReader } from "../hooks/useFileLeader";
 
 function Signup() {
   const navigate = useNavigate();
   const mutation = useMutation(signupAxios, {
     onSuccess: () => {
+      alert("회원가입 성공");
       resetForm();
       navigate("/");
     },
@@ -34,6 +38,7 @@ function Signup() {
   const [form, handleFormChange, handleFileChange, resetForm] =
     useForm(initialState);
   const { email, password, name, nickname } = form;
+  const [imageUrl, fileReader] = useFileReader();
 
   // 정규식
   const emailRegex =
@@ -83,15 +88,27 @@ function Signup() {
     }
   };
 
+  // 이미지 파일 리더
+  const imageFileReader = async () => {
+    if (form.userPhoto) {
+      fileReader(form.userPhoto);
+    }
+  };
+
   useEffect(() => {
     signupActiveChange();
   }, [name, nickname, email, password]);
+
+  useEffect(() => {
+    imageFileReader();
+  }, [form.userPhoto]);
 
   return (
     <>
       <h4>친구들의 사진과 동영상을 보려면 가입하세요.</h4>
       <StImageUpload>
         <StLabel>프로필 사진을 선택해 주세요.</StLabel>
+        <StProfile image={imageUrl}>IMAGE</StProfile>
         <input
           type="file"
           id="fileUpload"
@@ -100,14 +117,17 @@ function Signup() {
           onChange={handleFileChange}
         ></input>
       </StImageUpload>
-      <Input
-        type="text"
-        name="email"
-        value={email}
-        placeHolder="이메일 주소"
-        onChange={handleFormChange}
-        message={emailMessage}
-      />
+      <StEmailChecking>
+        <Input
+          type="text"
+          name="email"
+          value={email}
+          placeHolder="이메일 주소"
+          onChange={handleFormChange}
+          message={emailMessage}
+        />
+        <StButton width="30%">확인</StButton>
+      </StEmailChecking>
       <Input
         type="text"
         name="name"
