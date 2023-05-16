@@ -1,28 +1,41 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
+import { postAdd } from "../apis/post";
+import { styled } from "styled-components";
+import { IoArrowBack } from "react-icons/io5";
 
 function PostingModal() {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   const [modal, setModal] = useState(false);
 
-  const openModal = () => {
-    setModal(true);
-  };
   const closeModal = () => {
-    setModal(flase);
+    setModal(false);
   };
 
   const imgInput = useRef();
-  const [post, setPost] = useState({ postPhoto: "", content: "" });
-
+  /*   const [post, setPost] = useState({ postPhoto: "", content: "" }); */
+  const post = {
+    postPhoto,
+    content,
+  };
+  const mutationAddPost = useMutation(postAdd, {
+    onSuccess: (response) => {
+      alert("게시물을 생성하였습니다.");
+      closeModal();
+    },
+  });
+  const [content, setContent] = useState("");
   // 이미지 state
-  const [UploadImageForm, setUploadImageForm] = useState(null);
+  const [postPhoto, setPostPhoto] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
 
   // 이미지 첨부
-  const imgHandler = (e) => {
-    setUploadImageForm(e.target.files[0]);
+  const addPhoto = (e) => {
+    e.preventDefault();
+    setPostPhoto(e.target.files[0]);
 
+    console.log(postPhoto);
     // 미리보기
     const reader = new FileReader();
     if (e.target.files[0]) {
@@ -37,18 +50,23 @@ function PostingModal() {
     };
   };
 
-  // 본문
+  /*   // 본문
   const handleSetPost = (e) => {
     const value = e.target.value;
-    setPost({ ...post, image: UploadImageForm, contents: value });
-  };
+    setPost({ ...post, image: postPhoto, contents: value });
+  }; */
 
   // 업로드
-  const handleUpload = () => {
-    dispatch(__addFeed(post));
-    dispatch(updateIsModalOpen());
-    setUploadImageForm(null);
+  const handleUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    console.log(postPhoto);
+    console.log(content);
+    formData.append("postPhoto", postPhoto);
+
+    setPostPhoto(null);
     setPreviewImage(null);
+    mutationAddPost.mutate({ content, formData, authorization });
   };
 
   if (!isModalOpen) return null;
@@ -57,38 +75,25 @@ function PostingModal() {
     <div>
       // 모달 뒷배경을 눌렀을 때 모달이 사라짐
       <Outside onClick={closeModal} />
-      {/* 닫기 버튼 */}
       <button
-        variant="closeModalBtn"
         onClick={(e) => {
           setModal(false);
           setImgUrl(null);
         }}
       />
       {/* 모달창 */}
-      <div>
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          variant="modalBox"
-        >
-          {/* 모달창 헤더 */}
-          <div variant="modalHeader">
-            <Image
-              onClick={() => {
-                dispatch(updateIsModalOpen());
-              }}
-              variant="goBackIcon"
-            />
+      <ModalPosition>
+        <ModalBox>
+          <ModalHeader>
+            <IoArrowBack onClick={closeModal} />
             <p>새 게시물 만들기</p>
             <button onClick={handleUpload}>공유하기</button>
-          </div>
+          </ModalHeader>
 
           {/* 모달창 컨텐츠 영역 */}
-          <div variant="modalContents">
+          <ModalContents>
             {/* 모달창 왼쪽: 사진 업로드 영역 */}
-            {/* 업로드 안내 또는 이미지 미리보기 */}
+            {/* 업로드 안내 or 이미지 미리보기 */}
             {imgUrl ? (
               <div
                 id="img"
@@ -101,47 +106,44 @@ function PostingModal() {
                 }}
               />
             ) : (
-              <div variant="uploadImageArea">
+              <UploadImageArea>
                 <Image variant="uploadImageIcon" />
                 <h2>업로드할 사진을 선택해주세요.</h2>
                 <input
                   style={{ visibility: "hidden", display: "none" }}
-                  ref={imgInput}
                   type="file"
+                  id="postPhoto"
                   accept="image/*"
-                  onChange={imgHandler}
+                  onChange={addPhoto}
                 />
-                <button
-                  onClick={() => {
-                    imgInput.current.click();
-                  }}
-                  variant="smallBlue"
-                >
+                {/*<label htmlFor="postPhoto" onClick={addphoto}>
                   컴퓨터에서 선택
-                </button>
-              </div>
+                </label> */}
+                <button onClick={addPhoto}>컴퓨터에서 선택</button>
+              </UploadImageArea>
             )}
             {/* 모달창 오른쪽: 게시글 작성 영역 */}
-            <div variant="modalWriteArea">
-              {/* 프로필 */}
-              <div variant="photoAndId">
-                <Margin margin="0 12px 0 16px">
-                  <Image variant="profileDefaultIcon" />
-                </Margin>
-                <span>{memberId}</span>
-              </div>
-
+            <WriteArea>
+              <UserInfo>
+                <UserImage />
+                <span>{user.nickname}</span>
+              </UserInfo>
               {/* 작성 영역 */}
-              <TextArea onChange={handleSetPost} placeholder="문구 입력..." />
-            </div>
-          </div>
-        </div>
-      </div>
+              <TextArea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="문구 입력..."
+              />
+            </WriteArea>
+          </ModalContents>
+        </ModalBox>
+      </ModalPosition>
     </div>
   );
 }
 
 export default PostingModal;
+
 const Outside = styled.div`
   position: fixed;
   top: 0;
@@ -152,11 +154,85 @@ const Outside = styled.div`
   z-index: 5;
 `;
 
-const TextArea = styled.input`
+const TextArea = styled.textarea`
   height: 100%;
   background-color: transparent;
   padding: 0 16px;
   ::placeholder {
     color: #bec3c9;
   }
+`;
+// UserInfo 컴포넌트
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+
+  span {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+    display: inline-block; /* span 요소가 블록 레벨 요소로 동작하게 만듭니다. */
+    width: 200px; /* 고정된 가로 길이를 지정합니다. */
+    /*  overflow: hidden; 가로 길이를 넘어가는 내용을 자르고 숨깁니다. */
+    white-space: nowrap; /* 공백 문자를 처리하지 않고 모든 문자를 한 줄로 표시합니다. */
+  }
+`;
+const UserImage = styled.div`
+  background-image: url(${image});
+  background-size: cover;
+  background-position: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 1rem;
+`;
+const ModalBox = styled.div`
+  width: 696px;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: #ffffff;
+  text-align: center;
+`;
+const ModalHeader = styled.div`
+  width: 100%;
+  height: 42px;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 0 16px;
+  justify-content: space-between;
+`;
+const ModalContents = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+const UploadImageArea = styled.div`
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  border-right: 1px solid #dbdbdb;
+`;
+const WriteArea = styled.div`
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+`;
+const ModalPosition = styled.div`
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  /*   top: 0; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  justify-content: center;
+  align-items: center;
 `;
