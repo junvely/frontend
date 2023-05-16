@@ -1,4 +1,34 @@
 {
+  "post": {
+    "postId": 1,
+    "nickname": "yeoni-drawing",
+    "postPhoto": "",
+    "likesCount": 12,
+    "userPhoto": ""
+  },
+  "commentsData": [
+    {
+      "PostId": 1,
+      "commentId": 1,
+      "nickname": "otattoo",
+      "comment": "도안 예뻐요!",
+      "userPhoto": ""
+    },
+    {
+      "PostId": 1,
+      "commentId": 2,
+      "nickname": "meal-poke",
+      "comment": "짱귀욤",
+      "userPhoto": ""
+    },
+    {
+      "PostId": 1,
+      "commentId": 3,
+      "nickname": "yeoni-drawing",
+      "comment": "헐 ㅠㅠㅠㅠ",
+      "userPhoto": ""
+    }
+  ],
   "users": [
     {
       "email": "test@test.com",
@@ -16,57 +46,4 @@
       "userPhoto": "",
       "id": 2
     }
-  ],
-  "api": {
-    "posts": [
-      {
-        "nickname": "userId",
-        "UserId": 2,
-        "postId": 3,
-        "userPhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-        "postPhoto": "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2021/11/13/mgtFv6a0SQ4L637724194204501826.jpg",
-        "content": "어쩌구저쩌구",
-        "likesCount": 9,
-        "commentsCount": 5,
-        "isLiked": true,
-        "follow": true
-      },
-      {
-        "nickname": "userId",
-        "UserId": 2,
-        "postId": 3,
-        "userPhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-        "postPhoto": "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2021/11/13/mgtFv6a0SQ4L637724194204501826.jpg",
-        "content": "어쩌구저쩌구",
-        "likesCount": 9,
-        "commentsCount": 5,
-        "isLiked": true,
-        "follow": true
-      },
-      {
-        "nickname": "userId",
-        "UserId": 2,
-        "postId": 3,
-        "userPhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-        "postPhoto": "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2021/11/13/mgtFv6a0SQ4L637724194204501826.jpg",
-        "content": "어쩌구저쩌구",
-        "likesCount": 9,
-        "commentsCount": 5,
-        "isLiked": true,
-        "follow": true
-      },
-      {
-        "nickname": "userId",
-        "UserId": 2,
-        "postId": 3,
-        "userPhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-        "postPhoto": "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2021/11/13/mgtFv6a0SQ4L637724194204501826.jpg",
-        "content": "어쩌구저쩌구",
-        "likesCount": 9,
-        "commentsCount": 5,
-        "isLiked": true,
-        "follow": true
-      }
-    ]
-  }
-}
+]
