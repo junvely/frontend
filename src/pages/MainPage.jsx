@@ -12,8 +12,7 @@ import {
 import { StFlexCon } from "../styles/GlobalStyles";
 import Story from "../components/Story";
 import Feed from "../components/Feed";
-import { useQuery } from "react-query";
-import { getMainPostsAxios } from "../apis/feed";
+import RecommandList from "../components/RecommandList";
 
 function MainPage() {
   // const { isLoading, isError, data } = useQuery("posts", getMainPostsAxios);
@@ -59,7 +58,9 @@ function MainPage() {
               })}
             </StFeedList>
           </StFeedCon>
-          <StRecommandCon></StRecommandCon>
+          <StRecommandCon>
+            <RecommandList></RecommandList>
+          </StRecommandCon>
         </StFlexCon>
       </StInnerCon>
     </StMainCon>

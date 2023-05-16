@@ -12,11 +12,11 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "/build")));
 
 app.get("/", (res, req) => {
-  req.sendFile(path.join(__dirname, "/build/index.html"));
+  req.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 app.get("*", (res, req) => {
-  req.sendFile(path.join(__dirname, "/build/index.html"));
+  req.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 // 8080번 포트에서 서버를 실행할거야

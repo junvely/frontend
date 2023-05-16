@@ -81,8 +81,13 @@ export const StEmailChecking = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
   input {
-    width: 75%;
+    width: 100%;
   }
 
   button {
@@ -192,5 +197,70 @@ export const StContent = styled.div`
     color: #777;
     padding: 2px 0 4px;
     cursor: pointer;
+  }
+`;
+
+// RecommandList
+export const StMyCon = styled.div`
+  width: 100%;
+`;
+
+export const StRecommand = styled.div`
+  width: 100%;
+`;
+
+export const StSubtitleCon = styled(StFlexCon)`
+  padding: 0 16px;
+
+  span {
+    font-size: 14px;
+    line-height: 10px;
+    color: #737373;
+    font-weight: 600;
+  }
+
+  a {
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+  }
+`;
+
+export const StUserListCon = styled.div`
+  padding: 8px 0;
+`;
+
+// UserRecommand
+export const ProfileCon = styled(StFlexCon)`
+  padding: 8px 16px;
+  margin: ${(props) => props.myProfile && "16px 0 10px"};
+  align-items: center;
+
+  span {
+    width: 15%;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0095f6;
+  }
+`;
+
+export const StProfileImage = styled(StStory)`
+  background: none;
+  width: ${(props) => props.width};
+`;
+
+export const StUserName = styled.div`
+  width: 63.5%;
+  padding-left: ${(props) => (props.myProfile ? "15px" : 0)};
+
+  span {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+  }
+
+  p {
+    font-size: ${(props) => (props.myProfile ? "14px" : "12px")};
+    color: #777;
   }
 `;

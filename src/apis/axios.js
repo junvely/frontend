@@ -14,13 +14,12 @@ instance.interceptors.request.use((config) => {
   const refreshToken = sessionStorage.getItem("refreshToken");
   const userId = sessionStorage.getItem("userId");
   if (accessToken || refreshToken) {
-    config.headers["set-cookie"]["accessToken"] = accessToken;
-    config.headers["set-cookie"]["refreshToken"] = refreshToken;
-    config["userId"] = userId;
+    config.headers["accessToken"] = accessToken;
+    config.headers["refreshToken"] = refreshToken;
+    config.headers["userId"] = userId;
   }
   return config;
 });
-
 
 instance.interceptors.response.use(
   function (response) {
@@ -36,11 +35,13 @@ instance.interceptors.response.use(
   },
 
   function (error) {
+    const errorMessage = error.response.data.errorMessage;
+    console.log(errorMessage);
     // 액세스 토큰 만료시 리프레쉬 토큰 전달
-    if (error.errorMessage === "액세스 토큰이 만료되었습니다") {
+    if (errorMessage === "액세스 토큰이 만료되었습니다") {
       tokenVerifyAxios();
       // 리프레쉬 토큰 만료시 토큰 삭제 및 로그아웃 처리
-    } else if (error.errorMessage === "리프레쉬 토큰이 만료되었습니다") {
+    } else if (errorMessage === "리프레쉬 토큰이 만료되었습니다") {
       sessionStorage.removeItem("accessToken");
       sessionStorage.removeItem("refreshToken");
       sessionStorage.removeItem("userId");

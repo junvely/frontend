@@ -16,6 +16,12 @@ export const Stwrap = styled.div`
   margin: 0 auto;
 `;
 
+export const StSection = styled.section`
+  width: 100%;
+  height: auto;
+  padding: ${(props) => props.padding};
+`;
+
 export const StFlexAll = styled.div`
   display: flex;
   flex-direction: column;

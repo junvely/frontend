@@ -3,7 +3,11 @@ import Input from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm.js";
 import { Colors } from "../styles/GlobalStyles";
-import { signupAxios } from "../apis/auth/signup";
+import {
+  emailVerifyNumAxios,
+  sendEmailAxios,
+  signupAxios,
+} from "../apis/auth/signup";
 import { useMutation } from "react-query";
 import {
   StButton,
@@ -14,14 +18,35 @@ import {
   StProfile,
 } from "../styles/Components";
 import { useFileReader } from "../hooks/useFileLeader";
+import { useInput } from "../hooks/useInput";
 
 function Signup() {
   const navigate = useNavigate();
-  const mutation = useMutation(signupAxios, {
+  const signupMutation = useMutation(signupAxios, {
     onSuccess: () => {
       alert("회원가입 성공");
       resetForm();
       navigate("/");
+    },
+  });
+  const sendEmailMutation = useMutation(sendEmailAxios, {
+    onSuccess: () => {
+      setIsSendEmail(true);
+      alert("회원님의 이메일로 인증번호를 전송했습니다!");
+    },
+    onError: () => {
+      setIsSendEmail(false);
+    },
+  });
+  const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
+    onSuccess: () => {
+      setEmailChecking(true);
+      alert("이메일 검증이 완료되었습니다!");
+      resetEmailVerify();
+      setIsSendEmail(false);
+    },
+    onError: () => {
+      setEmailChecking(false);
     },
   });
 
@@ -35,10 +60,19 @@ function Signup() {
     userPhoto: "",
   };
 
+  // 폼 데이터 입력값 받는 Hook
   const [form, handleFormChange, handleFileChange, resetForm] =
     useForm(initialState);
   const { email, password, name, nickname } = form;
+
+  // 이미지 URL 리더 Hook
   const [imageUrl, fileReader] = useFileReader();
+
+  // 이메일 인증 번호 관련 state
+  const [isSendEmail, setIsSendEmail] = useState(false);
+  const [emailVerifyNum, handleEmailVerifyNumChange, resetEmailVerify] =
+    useInput("");
+  const [emailChecking, setEmailChecking] = useState(false);
 
   // 정규식
   const emailRegex =
@@ -79,10 +113,30 @@ function Signup() {
     }
   };
 
+  // 이메일 서버에 전송 api
+  const handleClickEmailChecking = () => {
+    alert("서비스 예정입니다.");
+    return;
+    sendEmailMutation.mutate(email);
+  };
+
+  // 이메일 인증번호 확인 api
+  const handleClickEmailVerifyNumChecking = () => {
+    if (emailVerifyNum) {
+      emailVerifyMutation.mutate(emailVerifyNum);
+    } else {
+      alert("인증번호를 입력해 주세요.");
+    }
+  };
+
   // 회원가입 api
   const handleClickLogin = (e) => {
     if (loginActive) {
-      mutation.mutate(form);
+      if (!emailChecking) {
+        alert("이메일 인증을 완료해 주세요!");
+        return;
+      }
+      signupMutation.mutate(form);
     } else {
       return;
     }
@@ -118,16 +172,37 @@ function Signup() {
         ></input>
       </StImageUpload>
       <StEmailChecking>
-        <Input
-          type="text"
-          name="email"
-          value={email}
-          placeHolder="이메일 주소"
-          onChange={handleFormChange}
-          message={emailMessage}
-        />
-        <StButton width="30%">확인</StButton>
+        <div>
+          <Input
+            type="text"
+            name="email"
+            value={email}
+            placeHolder="이메일 주소"
+            onChange={handleFormChange}
+            message={emailMessage}
+          />
+        </div>
+        <StButton width="30%" onClick={handleClickEmailChecking}>
+          확인
+        </StButton>
       </StEmailChecking>
+      {/* 이메일 인증번호 입력란 => 이메일을 서버에 성공적으로 보내면 인증번호 입력란이 나타납니다. */}
+      {isSendEmail && (
+        <StEmailChecking>
+          <div>
+            <Input
+              type="text"
+              value={emailVerifyNum}
+              placeHolder="인증번호 입력"
+              onChange={handleEmailVerifyNumChange}
+              message="인증번호를 입력해 주세요"
+            />
+          </div>
+          <StButton width="30%" onClick={handleClickEmailVerifyNumChecking}>
+            확인
+          </StButton>
+        </StEmailChecking>
+      )}
       <Input
         type="text"
         name="name"
