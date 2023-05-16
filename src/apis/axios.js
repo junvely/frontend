@@ -8,42 +8,29 @@ const instance = axios.create({
   },
 });
 
-const verifyInstance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-  },
-});
-
 instance.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
   const accessToken = sessionStorage.getItem("accessToken");
-  config.headers["accessToken"] = accessToken;
+  const refreshToken = sessionStorage.getItem("refreshToken");
+  const userId = sessionStorage.getItem("userId");
+  if (accessToken || refreshToken) {
+    config.headers["set-cookie"]["accessToken"] = accessToken;
+    config.headers["set-cookie"]["refreshToken"] = refreshToken;
+    config["userId"] = userId;
+  }
   return config;
 });
 
-// 토큰 verify instance
-verifyInstance.interceptors.request.use((config) => {
-  if (config.headers === undefined) return;
-  const refreshToken = sessionStorage.getItem("refreshToken");
-  const userId = sessionStorage.getItem("userId");
-  config.headers["refreshToken"] = refreshToken;
-  config.headers["userId"] = userId;
-  return config;
-});
 
 instance.interceptors.response.use(
   function (response) {
-    const accessToken = response.headers["accessToken"];
-    const refreshToken = response.headers["refreshToken"];
-    const userId = response.headers["userId"];
-
-    if (accessToken && refreshToken) {
+    const accessToken = response.data["accessToken"];
+    const refreshToken = response.data["refreshToken"];
+    const userId = response.data["userId"];
+    if (accessToken || refreshToken) {
       sessionStorage.setItem("accessToken", accessToken);
       sessionStorage.setItem("refreshToken", refreshToken);
       sessionStorage.setItem("userId", userId);
-    } else if (accessToken) {
-      sessionStorage.setItem("accessToken", accessToken);
     }
     return response;
   },
@@ -64,4 +51,21 @@ instance.interceptors.response.use(
   }
 );
 
-export { instance, verifyInstance };
+// const verifyInstance = axios.create({
+//   baseURL: process.env.REACT_APP_SERVER,
+//   headers: {
+//     "Access-Control-Allow-Origin": "*",
+//   },
+// });
+
+// 토큰 verify instance
+// verifyInstance.interceptors.request.use((config) => {
+//   if (config.headers === undefined) return;
+//   const refreshToken = sessionStorage.getItem("refreshToken");
+//   const userId = sessionStorage.getItem("userId");
+//   config.headers["refreshToken"] = refreshToken;
+//   config.headers["userId"] = userId;
+//   return config;
+// });
+
+export { instance };

@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { StFlexAll } from "./GlobalStyles";
+import { StFlexAll, StFlexCon } from "./GlobalStyles";
 
 // AccountPage
 export const StAccountCon = styled(StFlexAll)`
@@ -50,4 +50,61 @@ export const StFormCon = styled.div`
       color: navy;
     }
   }
+`;
+
+// MainPage
+export const StSideCon = styled.div`
+  width: 100%;
+  max-width: 335px;
+  height: 100vh;
+  border: 1px solid;
+  position: sticky;
+  left: 0;
+  top: 0;
+`;
+
+export const StMainCon = styled(StFlexCon)`
+  width: 100%;
+`;
+
+export const StInnerCon = styled.div`
+  width: 100%;
+  max-width: 1020px;
+  height: auto;
+  margin: 0 auto;
+`;
+
+export const StFeedCon = styled.div`
+  width: 100%;
+  max-width: 630px;
+`;
+
+export const StRecommandCon = styled.div`
+  width: 100%;
+  max-width: 320px;
+  height: 100vh;
+  border: 1px solid;
+`;
+
+export const StStoryList = styled(StFlexCon)`
+  margin: 1rem 0;
+  padding: 1rem 0;
+`;
+
+export const StStoryBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  span {
+    font-size: 0.7rem;
+    text-align: center;
+    margin-top: 3px;
+  }
+`;
+
+export const StFeedList = styled.div`
+  width: 100%;
+  max-width: 470px;
+  margin: 0 auto;
 `;
