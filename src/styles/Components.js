@@ -235,6 +235,7 @@ export const ProfileCon = styled(StFlexCon)`
   padding: 8px 16px;
   margin: ${(props) => props.myProfile && "16px 0 10px"};
   align-items: center;
+  cursor: pointer;
 
   span {
     width: 15%;

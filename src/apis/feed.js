@@ -2,23 +2,25 @@ import { instance } from "./axios";
 
 const getMainPostsAxios = async () => {
   try {
-    const { data } = await instance.get("/api/posts");
-    alert("포스트 가져오기 성공");
-    return data.data;
+    const { data } = await instance.get("/api/main");
+    return data;
   } catch (error) {
-    // alert(error.errorMessage);
+    const errorMessage = error.response.data.errorMessage;
+    console.log(errorMessage);
     throw error;
   }
 };
 
-const putLikeAxios = async (id) => {
+const isLikeAxios = async (id) => {
+  console.log(id);
   try {
     const { data } = await instance.get(`/api/posts/:${id}/like`);
     return data.data;
   } catch (error) {
-    // alert(error.errorMessage);
+    const errorMessage = error.response.data.errorMessage;
+    alert(errorMessage);
     throw error;
   }
 };
 
-export { getMainPostsAxios, putLikeAxios };
+export { getMainPostsAxios, isLikeAxios };
