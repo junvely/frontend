@@ -5,14 +5,12 @@ import { useParams } from "react-router";
 import { userRequest } from "../apis/user";
 
 function MyPage() {
-  const authorization = sessionStorage.getItem("accessToken");
-
   // 현재 페이지 URL에서 userId 추출
   const params = useParams();
   const userId = params.id;
 
   const { isLoading, isError, data } = useQuery("user", () =>
-    userRequest({ userId, authorization })
+    userRequest(userId)
   );
   if (isLoading) {
     return <p>로딩중입니다!</p>;

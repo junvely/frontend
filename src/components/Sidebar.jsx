@@ -2,19 +2,25 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MdHomeFilled } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
-import { IoPaperPlaneOutline } from "react-icons/io";
+import { IoPaperPlaneOutline } from "react-icons/io5";
 import { HiOutlineHeart } from "react-icons/hi";
 import { FiPlusSquare } from "react-icons/fi";
 import { AiOutlineCompass } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import PostingModal from "./PostingModal";
+import { postUser } from "../apis/post";
+import { useQuery } from "react-query";
 
 function Sidebar() {
+  const userId = sessionStorage.getItem("userId");
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
-  const openModal = () => {
-    setModal(true);
+  const { isLoading, isError, data } = useQuery("user", postUser);
+
+  const changeModal = () => {
+    setModal(!modal);
   };
+
   return (
     <SidebarContainer>
       <Logo src="로고 이미지 URL" alt="로고" />
@@ -36,10 +42,6 @@ function Sidebar() {
           <AiOutlineCompass />
           <TabText>탐색</TabText>
         </TabButton>
-        {/* <TabButton>
-          <TabIcon src="아이콘 이미지 URL" alt="아이콘" />
-          <TabText>릴스</TabText>
-        </TabButton> */}
         <TabButton>
           <IoPaperPlaneOutline />
           <TabText>메시지</TabText>
@@ -48,15 +50,29 @@ function Sidebar() {
           <HiOutlineHeart />
           <TabText>알림</TabText>
         </TabButton>
-        <TabButton onClick={openModal}>
+        <TabButton onClick={changeModal}>
           <FiPlusSquare />
           <TabText>만들기</TabText>
-          {modal && <PostingModal setModal={setModal} />}
         </TabButton>
-        <TabButton>
-          <TabIcon src="아이콘 이미지 URL" alt="아이콘" />
-          <TabText>프로필</TabText>
-        </TabButton>
+        {modal && (
+          <>
+            <PostingModal changeModal={changeModal} />
+          </>
+        )}
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : isError ? (
+          <div>Error occurred.</div>
+        ) : (
+          <TabButton
+            onClick={() => {
+              navigate(`/posts/${userId}`);
+            }}
+          >
+            <UserImage src={data.userPhoto} />
+            <TabText>프로필</TabText>
+          </TabButton>
+        )}
       </SidebarContent>
     </SidebarContainer>
   );
@@ -64,12 +80,9 @@ function Sidebar() {
 
 export default Sidebar;
 const SidebarContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   height: 100vh;
-  width: 200px;
-  background-color: #f0f0f0;
+  width: 100%;
+  background-color: white;
   border-right: 1px solid #d3d2d2;
   padding: 20px;
   padding-right: 30px;
@@ -81,25 +94,36 @@ const Logo = styled.img``;
 const SidebarContent = styled.div`
   display: flex;
   flex-direction: column;
+
   margin-top: 20px;
 `;
 
 const TabButton = styled.button`
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding-bottom: 30px;
   background-color: transparent;
   border: none;
+  font-size: 25px;
 
   &:hover {
-    background-color: #f9f9f9;
+    background-color: #ececec;
+    border-radius: 8px;
   }
 `;
 
 const TabText = styled.span`
   font-size: 20px;
+  margin-left: 20px;
 `;
 
 const LogoutButton = styled.button`
   margin-top: auto;
+`;
+const UserImage = styled.img`
+  background-size: cover;
+  background-position: center;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
 `;

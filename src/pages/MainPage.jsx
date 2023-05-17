@@ -14,6 +14,7 @@ import Story from "../components/Story";
 import Feed from "../components/Feed";
 import { useQuery } from "react-query";
 import { getMainPostsAxios } from "../apis/feed";
+import Sidebar from "../components/Sidebar";
 
 function MainPage() {
   // const { isLoading, isError, data } = useQuery("posts", getMainPostsAxios);
@@ -34,7 +35,9 @@ function MainPage() {
 
   return (
     <StMainCon>
-      <StSideCon></StSideCon>
+      <StSideCon>
+        <Sidebar />
+      </StSideCon>
       <StInnerCon>
         <StFlexCon>
           <StFeedCon>

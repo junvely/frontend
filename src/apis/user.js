@@ -1,17 +1,10 @@
-import axios from "axios";
+import { instance } from "./axios";
 
 // 유저 게시물 조회 api, method : get, url : /api/users/:userId
-const userRequest = async ({ userId, authorization }) => {
+const userRequest = async (userId) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/users/${userId}`,
-      {
-        headers: {
-          Authorization: `${authorization}`,
-        },
-      }
-    );
-    console.log(response.data);
+    const response = await instance.get(`/api/posts/${userId}`);
+    console.log(response);
     return response.data;
   } catch (error) {
     return Promise.reject(error.response);
@@ -19,16 +12,9 @@ const userRequest = async ({ userId, authorization }) => {
 };
 
 // 유저 팔로우, api, method : get, url : /api/users/:userId/follow
-const userFollow = async ({ userId, authorization }) => {
+const userFollow = async (userId) => {
   try {
-    const response = await axios.put(
-      `${process.env.REACT_APP_SERVER_URL}/api/posts/${userId}/follow`,
-      {
-        headers: {
-          Authorization: `${authorization}`,
-        },
-      }
-    );
+    const response = await instance.put(`/api/users/${userId}/follow`);
     return response.data;
   } catch (error) {
     return Promise.reject(error.response);
@@ -36,32 +22,18 @@ const userFollow = async ({ userId, authorization }) => {
 };
 
 // 유저 팔로우 조회, api, method : get, url : /api/users/:userId/follow
-const followRequest = async ({ userId, authorization }) => {
+const followRequest = async (userId) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/posts/${userId}/follow`,
-      {
-        headers: {
-          Authorization: `${authorization}`,
-        },
-      }
-    );
+    const response = await instance.get(`/api/users/${userId}/follow`);
     return response.data;
   } catch (error) {
     return Promise.reject(error.response);
   }
 };
 // 유저 팔로워 조회, api, method : get, url : /api/users/:userId/follower
-const followerRequest = async ({ userId, authorization }) => {
+const followerRequest = async (userId) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/posts/${userId}/follower`,
-      {
-        headers: {
-          Authorization: `${authorization}`,
-        },
-      }
-    );
+    const response = await instance.get(`/api/users/${userId}/follower`);
     return response.data;
   } catch (error) {
     return Promise.reject(error.response);

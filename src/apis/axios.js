@@ -14,13 +14,15 @@ instance.interceptors.request.use((config) => {
   const refreshToken = sessionStorage.getItem("refreshToken");
   const userId = sessionStorage.getItem("userId");
   if (accessToken || refreshToken) {
-    config.headers["set-cookie"]["accessToken"] = accessToken;
-    config.headers["set-cookie"]["refreshToken"] = refreshToken;
+    config.headers["accessToken"] = accessToken;
+    config.headers["refreshToken"] = refreshToken;
     config["userId"] = userId;
+    /* config.headers["set-cookie"] = { accessToken, refreshToken };
+      config.headers["set-cookie"]["accessToken"] = accessToken;
+      config.headers["set-cookie"]["refreshToken"] = refreshToken; */
   }
   return config;
 });
-
 
 instance.interceptors.response.use(
   function (response) {

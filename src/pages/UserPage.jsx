@@ -3,47 +3,53 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router";
 import { userFollow, userRequest } from "../apis/user";
 import styled from "styled-components";
+import postimg from "../img/post.png";
+import { postUser } from "../apis/post";
 
 function UserPage() {
-  const authorization = sessionStorage.getItem("accessToken");
-
+  const followMutation = useMutation(userFollow, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("user", userRequest);
+      /* queryClient.refetchQueries(); */
+    },
+  });
+  const { isLoading, isError, data } = useQuery("user", postUser);
   // 현재 페이지 URL에서 userId 추출
   const params = useParams();
   const userId = params.id;
   const queryClient = useQueryClient();
-  const { isLoading, isError, data } = useQuery("user", () =>
-    userRequest({ userId, authorization })
-  );
+  /*   const { isLoading, isError, data } = useQuery("user", () =>
+    userRequest(userId)
+  ); */
   if (isLoading) {
     return <p>로딩중입니다!</p>;
   }
   if (isError) {
     return <p>오류가 발생하였습니다!</p>;
   }
-  const followMutation = useMutation(userFollow, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("user", userRequest);
-      queryClient.refetchQueries();
-    },
-  });
+  const posts = [
+    { postPhoto: { postimg } },
+    { postPhoto: { postimg } },
+    { postPhoto: { postimg } },
+  ];
 
   const follow = () => {
-    followMutation.mutate({ userId, authorization });
+    followMutation.mutate(userId);
   };
   const showFollower = () => {};
   const showFollow = () => {};
   return (
     <>
       <ProfileSection>
-        <ProfilePicture src="프로필 사진 URL" />
+        <ProfilePicture src={data.userPhoto} />
         <ProfileInfo>
-          <UserNickname>{userId}</UserNickname>
-          {data.follow ? (
+          <UserNickname>{data.nickname}</UserNickname>
+          {/*           {data.follow ? (
             <button>팔로잉</button>
           ) : (
             <button onClick={follow}>팔로우</button>
           )}
-          <Post>게시물 {data}</Post>
+          <Post>게시물 {data}</Post> */}
           <FollowerListSection onClick={showFollower}>
             팔로워{}
           </FollowerListSection>
@@ -54,7 +60,7 @@ function UserPage() {
       </ProfileSection>
 
       <PostListSection>
-        {data?.map((item) => {
+        {posts?.map((item) => {
           return (
             <PostListItem>
               <PostImage src={item.postPhoto} />
