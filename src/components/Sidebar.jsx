@@ -38,7 +38,11 @@ function Sidebar() {
           <BiSearch />
           <TabText>검색</TabText>
         </TabButton>
-        <TabButton>
+        <TabButton
+          onClick={() => {
+            navigate("/random");
+          }}
+        >
           <AiOutlineCompass />
           <TabText>탐색</TabText>
         </TabButton>
