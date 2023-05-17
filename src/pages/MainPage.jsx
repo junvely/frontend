@@ -12,17 +12,15 @@ import {
 import { StFlexCon } from "../styles/GlobalStyles";
 import Story from "../components/Story";
 import Feed from "../components/Feed";
+import RecommandList from "../components/RecommandList";
 import { useQuery } from "react-query";
 import { getMainPostsAxios } from "../apis/feed";
 import Sidebar from "../components/Sidebar";
 
 function MainPage() {
-  // const { isLoading, isError, data } = useQuery("posts", getMainPostsAxios);
-  // console.log(data);
+  const { isLoading, isError, data } = useQuery("posts", getMainPostsAxios);
 
-  // console.log(data);
-
-  const data = [
+  const user = [
     "nickName1",
     "nickName2",
     "nickName3",
@@ -42,7 +40,7 @@ function MainPage() {
         <StFlexCon>
           <StFeedCon>
             <StStoryList>
-              {data?.map((user) => {
+              {user?.map((user) => {
                 return (
                   <StStoryBox>
                     <Story
@@ -62,7 +60,9 @@ function MainPage() {
               })}
             </StFeedList>
           </StFeedCon>
-          <StRecommandCon></StRecommandCon>
+          <StRecommandCon>
+            <RecommandList></RecommandList>
+          </StRecommandCon>
         </StFlexCon>
       </StInnerCon>
     </StMainCon>
