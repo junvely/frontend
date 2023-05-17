@@ -70,7 +70,7 @@ function Sidebar() {
         ) : (
           <TabButton
             onClick={() => {
-              navigate(`/posts/${userId}`);
+              navigate(`/users/${userId}`);
             }}
           >
             <UserImage src={data.userPhoto} />
@@ -127,7 +127,7 @@ const LogoutButton = styled.button`
 const UserImage = styled.img`
   background-size: cover;
   background-position: center;
-  width: 23px;
-  height: 23px;
+  width: 27px;
+  height: 27px;
   border-radius: 50%;
 `;
