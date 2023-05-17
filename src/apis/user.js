@@ -3,9 +3,9 @@ import { instance } from "./axios";
 // 유저 게시물 조회 api, method : get, url : /api/users/:userId
 const userRequest = async (userId) => {
   try {
-    const response = await instance.get(`/api/posts/${userId}`);
+    const response = await instance.get(`/api/users/${userId}`);
     console.log(response);
-    return response.data;
+    return response.data.page;
   } catch (error) {
     return Promise.reject(error.response);
   }

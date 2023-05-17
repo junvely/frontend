@@ -21,7 +21,7 @@ function Router() {
         <Route path="/random" element={<RandomPage />}></Route>
         <Route path="/main/:id" element={<DetailPage />}></Route>
         <Route path="/my" element={<MyPage />}></Route>
-        <Route path="/posts/:id" element={<UserPage />}></Route>
+        <Route path="/users/:id" element={<UserPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -50,7 +50,7 @@ function Feed({ post }) {
       <StFeedTitle>
         <StUserInfo>
           <Story width="42px" imageUrl={userPhoto} userId={UserId}></Story>
-          <Link to={`/user/${UserId}`}>{nickname}</Link>
+          <Link to={`/users/${UserId}`}>{nickname}</Link>
         </StUserInfo>
         <TfiMoreAlt style={{ color: "#222" }} />
       </StFeedTitle>
