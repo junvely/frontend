@@ -14,9 +14,31 @@ const signupAxios = async (payload) => {
     await instance.post("/api/signup", { ...payload, formData }, config);
     // 회원가입 성공시 자동으로 로그인 되게 하는 로직 추가
   } catch (error) {
-    // alert(error.errorMessage);
+    const errorMessage = error.response.data.errorMessage;
+    alert(errorMessage);
     throw error;
   }
 };
 
-export { signupAxios };
+const sendEmailAxios = async (email) => {
+  try {
+    const { data } = await instance.get("/api/", email);
+    return data;
+  } catch (error) {
+    const errorMessage = error.response.data.errorMessage;
+    alert(errorMessage);
+    throw error;
+  }
+};
+
+// const emailVerifyNumAxios = async (num) => {
+//   try {
+//     await instance.get("/api/", num);
+//   } catch (error) {
+//     const errorMessage = error.response.data.errorMessage;
+//     alert(errorMessage);
+//     throw error;
+//   }
+// };
+
+export { signupAxios, sendEmailAxios };

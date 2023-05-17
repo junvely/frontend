@@ -10,9 +10,9 @@ function Login() {
   const navigate = useNavigate();
   const mutation = useMutation(loginAxios, {
     onSuccess: () => {
+      navigate("/main");
       alert("로그인 성공");
       resetForm();
-      navigate("/main");
     },
   });
 
