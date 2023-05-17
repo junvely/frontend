@@ -26,9 +26,14 @@ instance.interceptors.response.use(
     const accessToken = response.data["accessToken"];
     const refreshToken = response.data["refreshToken"];
     const userId = response.data["userId"];
-    if (accessToken || refreshToken) {
+
+    if (accessToken) {
       sessionStorage.setItem("accessToken", accessToken);
+    }
+    if (refreshToken) {
       sessionStorage.setItem("refreshToken", refreshToken);
+    }
+    if (userId) {
       sessionStorage.setItem("userId", userId);
     }
     return response;

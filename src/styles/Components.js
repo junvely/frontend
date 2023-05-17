@@ -266,3 +266,5 @@ export const StUserName = styled.div`
     color: #777;
   }
 `;
+
+// searchBar

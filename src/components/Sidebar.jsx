@@ -91,6 +91,7 @@ const SidebarContainer = styled.div`
   padding: 20px;
   padding-right: 30px;
   overflow-y: auto;
+  position: relative;
 `;
 
 const Logo = styled.img``;

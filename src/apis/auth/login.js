@@ -16,7 +16,7 @@ const tokenVerifyAxios = async () => {
     await instance.post("/api/rtVerify");
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
-    alert(errorMessage);
+    console.log(errorMessage);
     throw error;
   }
 };
