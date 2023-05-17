@@ -16,20 +16,11 @@ import RecommandList from "../components/RecommandList";
 import { useQuery } from "react-query";
 import { getMainPostsAxios } from "../apis/feed";
 import Sidebar from "../components/Sidebar";
+import { randomUserAxios } from "../apis/user";
 
 function MainPage() {
-  const { isLoading, isError, data } = useQuery("posts", getMainPostsAxios);
-
-  const user = [
-    "nickName1",
-    "nickName2",
-    "nickName3",
-    "nickName4",
-    "nickName5",
-    "nickName6",
-    "nickName7",
-    "nickName8",
-  ];
+  const { data } = useQuery("posts", getMainPostsAxios);
+  const storysData = useQuery("randomUser", randomUserAxios);
 
   return (
     <StMainCon>
@@ -40,16 +31,15 @@ function MainPage() {
         <StFlexCon>
           <StFeedCon>
             <StStoryList>
-              {user?.map((user) => {
+              {storysData?.data?.map((user) => {
                 return (
                   <StStoryBox>
                     <Story
                       width="66px"
-                      imageUrl={
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU"
-                      }
+                      imageUrl={user.userPhoto}
+                      userId={user.UserId}
                     ></Story>
-                    <span>{user}</span>
+                    <span>{user.nickname}</span>
                   </StStoryBox>
                 );
               })}

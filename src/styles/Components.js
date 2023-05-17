@@ -141,7 +141,8 @@ export const StUserInfo = styled.div`
 
 export const StPhoto = styled.div`
   width: 100%;
-  min-height: 585px;
+  height: auto;
+  /* min-height: 585px; */
   overflow: hidden;
 
   img {
@@ -263,6 +264,101 @@ export const StUserName = styled.div`
 
   p {
     font-size: ${(props) => (props.myProfile ? "14px" : "12px")};
+    color: #777;
+  }
+`;
+
+// searchBar
+export const StSearchCon = styled.div`
+  width: 100%;
+  max-width: 396px;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 60px;
+  z-index: 200;
+  background-color: #fff;
+  border: 1px solid rgb(219, 219, 219);
+  border-top-right-radius: 15px;
+  overflow-y: auto;
+  transition: all 0.3s;
+`;
+
+export const StSearchInnerCon = styled.div`
+  padding: 12px 14px 36px 24px;
+  margin: 8px 0;
+
+  h5 {
+    font-size: 24px;
+  }
+`;
+
+export const StInputCon = styled.div`
+  background-color: #efefef;
+  margin: 0 16px 20px 16px;
+  padding: 0 16px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+
+  svg,
+  i,
+  g {
+    font-size: 20px;
+    font-weight: 900;
+    color: #636363;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
+  input {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    line-height: 25px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+`;
+
+export const StResultCon = styled.div`
+  padding: 8px 0;
+  border-top: 1px solid rgb(219, 219, 219);
+`;
+
+export const StResult = styled.div`
+  border-bottom: 1px solid rgb(219, 219, 219);
+  padding-bottom: 8px;
+`;
+
+export const StTitle = styled.span`
+  display: block;
+  padding: 8px 24px 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+`;
+export const StUserCon = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const StUserNameCon = styled.div`
+  padding-left: 10px;
+
+  span {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    padding: none;
+  }
+
+  p {
+    font-size: 12px;
     color: #777;
   }
 `;

@@ -36,13 +36,6 @@ instance.interceptors.response.use(
     if (userId) {
       sessionStorage.setItem("userId", userId);
     }
-    /* if (accessToken && refreshToken) {
-      sessionStorage.setItem("accessToken", accessToken);
-      sessionStorage.setItem("refreshToken", refreshToken);
-      sessionStorage.setItem("userId", userId);
-    } else {
-      sessionStorage.setItem("accessToken", accessToken);
-    } */
     return response;
   },
 
