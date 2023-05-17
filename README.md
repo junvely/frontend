@@ -2,6 +2,8 @@
 
 > 인스타그램(InStagram)을 클론 코딩하여 만든 저희만의 아웃스타그램 SNS입니다.
 
+<br>
+
 ## ⚙️ FE Tech Stack
 
 <div style="display: flex">
@@ -15,11 +17,17 @@
   <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=black">
   </div>
 
+<br>
+
 ## ⚙️ BE Tech Stack
+
+<br>
 
 ## 📒 17조 아웃스타그램 S.A 보러가기
 
 https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
+
+<br>
 
 ## 🖥️ 페이지 디자인
 
@@ -27,7 +35,11 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 #### 로그인 페이지
 
+<br>
+
 ## ⚙️ ERD
+
+<br>
 
 ## ✨ 프로젝트 기능 정리
 
@@ -43,6 +55,8 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 6. 기타 : 유저 페이지, 마이 페이지 게시물 조회, 유저 검색 기능, 팔로잉, 팔로우, 팔로잉한 유저의 게시글만 조회, 랜덤 유저의 게시물 조회, 좋아요 기능 등
 
+<br>
+
 ## ❗페이지 예외 처리
 
 ### FE 예외 처리
@@ -56,6 +70,8 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 ```
 
 ```
+
+<br>
 
 ## ✅ 트러블 슈팅 및 피드백 정리
 
