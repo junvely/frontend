@@ -7,10 +7,17 @@ import { useParams } from "react-router";
 import { useQuery } from "react-query";
 import Sidebar from "../components/Sidebar";
 import { StSideCon } from "../styles/Pages";
+import { userFollow, userRequest } from "../apis/user";
+import { StButtons, StLeftCon } from "../styles/Components";
+import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import { FaRegComment } from "react-icons/fa";
+import { IoPaperPlaneOutline } from "react-icons/io5";
+import { GrBookmark } from "react-icons/gr";
+import { HiOutlineHeart } from "react-icons/hi";
 
 function DetailPage() {
   const [comment, setComment] = useState("");
-  const queryClient = useQueryClient;
+  const queryClient = useQueryClient();
   // 현재 페이지 URL에서 postId 추출
   const params = useParams();
   const postId = params.id;
@@ -23,16 +30,25 @@ function DetailPage() {
   const { isLoading, isError, data } = useQuery("detail", () =>
     detailRequest(postId)
   );
+  const followMutation = useMutation(userFollow, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("detail");
+      queryClient.invalidateQueries("user");
+    },
+  });
+  const follow = () => {
+    followMutation.mutate(data.UserId);
+  };
+
   if (isLoading) {
     return <p>로딩중입니다!</p>;
   }
   if (isError) {
     return <p>오류가 발생하였습니다!</p>;
   }
-
+  console.log(data);
   const commentSubmitButtonHandler = (e) => {
     commentSubmitMutation.mutate({ postId, comment });
-    console.log("댓글!!!", comment);
   };
 
   return (
@@ -40,62 +56,71 @@ function DetailPage() {
       <StSideCon>
         <Sidebar />
       </StSideCon>
-      <Container>
-        <PostImageWrapper>
-          <PostImage src={data.postPhoto} />
-        </PostImageWrapper>
-        <ContentWrapper>
-          <UserInfo style={{ borderBottom: "1px solid lightgray" }}>
-            <UserImage src={data.userPhoto} />
-            <span>{data.nickname}</span>
-            {data.follow ? (
-              <>
-                <FollowBtn
-                  onClick={() => {
-                    data.follow = true;
-                  }}
-                >
-                  팔로잉
-                </FollowBtn>
-              </>
-            ) : (
-              <FollowBtn
-                onClick={() => {
-                  data.follow = true;
-                }}
-              >
-                팔로우
-              </FollowBtn>
-            )}
-          </UserInfo>
-          <PostContent>
-            <UserInfo>
+      <ContainerWrap>
+        <Container>
+          <PostImageWrapper>
+            <PostImage src={data.postPhoto} />
+          </PostImageWrapper>
+          <ContentWrapper>
+            <UserInfo style={{ borderBottom: "1px solid lightgray" }}>
               <UserImage src={data.userPhoto} />
               <span>{data.nickname}</span>
+              <FollowBtn onClick={follow}>
+                {data.follow ? "팔로잉" : "팔로우"}
+              </FollowBtn>
             </UserInfo>
-            <p>{data.content}</p>
-          </PostContent>
-          <Comments postId={postId} />
+            <PostContent>
+              <UserInfo>
+                <UserImage src={data.userPhoto} />
+                <span>{data.nickname}</span>
+              </UserInfo>
+              <p>{data.content}</p>
+            </PostContent>
+            <Comments postId={postId} />
+            <Wrap>
+              <StButtons>
+                <StLeftCon>
+                  <button>
+                    <HiOutlineHeart style={{ fontSize: "30px" }} />
+                  </button>
 
-          <Wrap>
-            <LikeInfo>
-              <span>좋아요 {data.likesCount}개</span>
-            </LikeInfo>
-            <CommentAdd>
-              <CommentInput
-                placeholder="댓글 달기..."
-                value={comment}
-                onChange={(e) => {
-                  setComment(e.target.value);
-                }}
-              />
-              <CommentAddBtn type="submit" onClick={commentSubmitButtonHandler}>
-                게시
-              </CommentAddBtn>
-            </CommentAdd>
-          </Wrap>
-        </ContentWrapper>
-      </Container>
+                  <button>
+                    <FaRegComment
+                      style={{
+                        transform: "scaleX(-1)",
+                      }}
+                    />
+                  </button>
+                  <button>
+                    <IoPaperPlaneOutline />
+                  </button>
+                </StLeftCon>
+                <button style={{ padding: "8px 0" }}>
+                  <GrBookmark />
+                </button>
+              </StButtons>
+              <LikeInfo>
+                <span>좋아요 {data.likesCount}개</span>
+              </LikeInfo>
+              <CommentAdd>
+                <CommentInput
+                  placeholder="댓글 달기..."
+                  value={comment}
+                  onChange={(e) => {
+                    setComment(e.target.value);
+                  }}
+                />
+                <CommentAddBtn
+                  type="submit"
+                  onClick={commentSubmitButtonHandler}
+                >
+                  게시
+                </CommentAddBtn>
+              </CommentAdd>
+            </Wrap>
+          </ContentWrapper>
+        </Container>
+      </ContainerWrap>
     </StWrap>
   );
 }
@@ -107,22 +132,11 @@ const StWrap = styled.div`
   justify-content: flex-start;
 `;
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  max-height: calc(100vh - 2rem);
-  padding: 2rem 0;
-  margin: 0 auto;
-  max-width: 1200px;
-  overflow-y: auto;
-`;
 const PostImageWrapper = styled.div`
-  width: 70%;
+  width: 66.66%;
   height: 100%;
   overflow: hidden;
 `;
-
 const PostImage = styled.img`
   width: 100%;
   height: 100%;
@@ -162,7 +176,8 @@ const LikeInfo = styled.div`
   margin-bottom: 1rem;
 
   span {
-    font-size: 1.5rem;
+    margin-left: 10px;
+    font-size: 1.1rem;
     color: #333;
     font-weight: bold;
   }
@@ -180,7 +195,7 @@ const CommentAdd = styled.form`
 const CommentInput = styled.input`
   width: 90%;
   padding: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.1em;
   margin-bottom: 1rem;
   border: none;
 
@@ -200,18 +215,42 @@ const CommentAddBtn = styled.button`
     color: #333;
   }
 `;
+const ContainerWrap = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  width: 1000px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 50px auto;
+  margin-right: 200px;
+  margin-left: 200px;
+  padding: 20px;
+  max-width: 1200px;
+  overflow-y: auto;
+  position: relative;
+`;
 
 const ContentWrapper = styled.div`
-  width: 40%;
-  margin-top: 0;
-  max-height: 100%;
+  flex-basis: 33.33%;
+  padding-top: 1rem;
+  min-height: 100%;
   overflow-y: auto;
+  box-sizing: border-box;
 `;
+
 const Wrap = styled.div`
+  position: fixed;
+  padding-bottom: 5.5rem;
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  height: 518px;
   justify-content: flex-end;
+  width: auto;
 `;
 
 const FollowBtn = styled.button`
