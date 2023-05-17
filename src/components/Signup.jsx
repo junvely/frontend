@@ -35,17 +35,17 @@ function Signup() {
       setIsSendEmail(false);
     },
   });
-  // const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
-  //   onSuccess: () => {
-  //     setEmailChecking(true);
-  //     alert("이메일 검증이 완료되었습니다!");
-  //     resetEmailVerify();
-  //     setIsSendEmail(false);
-  //   },
-  //   onError: () => {
-  //     setEmailChecking(false);
-  //   },
-  // });
+  /*   const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
+    onSuccess: () => {
+      setEmailChecking(true);
+      alert("이메일 검증이 완료되었습니다!");
+      resetEmailVerify();
+      setIsSendEmail(false);
+    },
+    onError: () => {
+      setEmailChecking(false);
+    },
+  }); */
 
   const [loginActive, setLoginActive] = useState(false);
 

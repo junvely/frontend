@@ -1,33 +1,25 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
-import postimg from "../img/post.png";
-import profileimg from "../img/profile.png";
 import Comments from "../components/Comments";
-import { commentSubmit, detailRequest } from "../apis/api";
+import { commentRequest, commentSubmit, detailRequest } from "../apis/api";
 import { useParams } from "react-router";
 import { useQuery } from "react-query";
+import Sidebar from "../components/Sidebar";
+import { StSideCon } from "../styles/Pages";
 
 function DetailPage() {
   const [comment, setComment] = useState("");
-  /*   const [item, setItem] = useState([]); */
   const queryClient = useQueryClient;
-
-  const commentSubmitMutation = useMutation(commentSubmit, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("deatail", detailRequest);
-    },
-  });
-
-  const commentSubmitButtonHandler = (e) => {
-    e.preventDefault();
-    commentSubmitMutation.mutate(comment);
-    setComment("");
-  };
   // 현재 페이지 URL에서 postId 추출
   const params = useParams();
   const postId = params.id;
-
+  const commentSubmitMutation = useMutation(commentSubmit, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("comments");
+      setComment("");
+    },
+  });
   const { isLoading, isError, data } = useQuery("detail", () =>
     detailRequest(postId)
   );
@@ -38,47 +30,58 @@ function DetailPage() {
     return <p>오류가 발생하였습니다!</p>;
   }
 
+  const commentSubmitButtonHandler = (e) => {
+    commentSubmitMutation.mutate({ postId, comment });
+    console.log("댓글!!!", comment);
+  };
+
   return (
-    <div>
+    <StWrap>
+      <StSideCon>
+        <Sidebar />
+      </StSideCon>
       <Container>
-        <PostImage />
+        <PostImageWrapper>
+          <PostImage src={data.postPhoto} />
+        </PostImageWrapper>
         <ContentWrapper>
-          <UserInfo>
-            <UserImage image={data.userPhoto} />
+          <UserInfo style={{ borderBottom: "1px solid lightgray" }}>
+            <UserImage src={data.userPhoto} />
             <span>{data.nickname}</span>
             {data.follow ? (
-              <></>
+              <>
+                <FollowBtn
+                  onClick={() => {
+                    data.follow = true;
+                  }}
+                >
+                  팔로잉
+                </FollowBtn>
+              </>
             ) : (
               <FollowBtn
                 onClick={() => {
-                  data.follw = true;
+                  data.follow = true;
                 }}
               >
                 팔로우
               </FollowBtn>
             )}
           </UserInfo>
-          <PostContent /* image={data.postPhoto} */>
+          <PostContent>
             <UserInfo>
-              <UserImage /* image={data.userPhoto} */ />
+              <UserImage src={data.userPhoto} />
               <span>{data.nickname}</span>
             </UserInfo>
             <p>{data.content}</p>
           </PostContent>
           <Comments postId={postId} />
-          {/* <CommentList>
-            <li>
-              <img src="프로필 사진 주소" alt="프로필 사진" />
-              <span>닉네임</span>
-              <span>댓글 내용</span>
-            </li>
-            ...
-          </CommentList> */}
+
           <Wrap>
             <LikeInfo>
               <span>좋아요 {data.likesCount}개</span>
             </LikeInfo>
-            <CommentAdd onSubmit={commentSubmitButtonHandler}>
+            <CommentAdd>
               <CommentInput
                 placeholder="댓글 달기..."
                 value={comment}
@@ -86,91 +89,71 @@ function DetailPage() {
                   setComment(e.target.value);
                 }}
               />
-              <CommentAddBtn>게시</CommentAddBtn>
+              <CommentAddBtn type="submit" onClick={commentSubmitButtonHandler}>
+                게시
+              </CommentAddBtn>
             </CommentAdd>
           </Wrap>
         </ContentWrapper>
       </Container>
-    </div>
+    </StWrap>
   );
 }
 
 export default DetailPage;
 
+const StWrap = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  max-width: 100%;
-  margin: 0px 330px;
-  height: 95vh;
+  align-items: flex-start;
+  max-height: calc(100vh - 2rem);
+  padding: 2rem 0;
+  margin: 0 auto;
+  max-width: 1200px;
+  overflow-y: auto;
+`;
+const PostImageWrapper = styled.div`
+  width: 70%;
+  height: 100%;
+  overflow: hidden;
 `;
 
-// PostImage 컴포넌트
-const PostImage = styled.div`
-  background-image: url(${postimg});
-  background-size: cover;
-  background-position: center;
-  width: 60%;
-  height: 70vh;
+const PostImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
-const ContentWrapper = styled.div`
-  width: 40%;
-  margin-top: 0;
-  /*  display: flex; 
-  flex-direction: column;
-  align-items: flex-end;*/
-`;
-// UserInfo 컴포넌트
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-  padding-bottom: 1rem;
-
-  span {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #333;
-    display: inline-block; /* span 요소가 블록 레벨 요소로 동작하게 만듭니다. */
-    width: 200px; /* 고정된 가로 길이를 지정합니다. */
-    /*  overflow: hidden; 가로 길이를 넘어가는 내용을 자르고 숨깁니다. */
-    white-space: nowrap; /* 공백 문자를 처리하지 않고 모든 문자를 한 줄로 표시합니다. */
-  }
-`;
-const UserImage = styled.div`
-  background-image: url(${profileimg});
-  background-size: cover;
-  background-position: center;
+const UserImage = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin: 1rem;
 `;
 
-// PostContent 컴포넌트
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+
+  span {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+  }
+`;
+
 const PostContent = styled.div`
   margin-bottom: 1rem;
 
   p {
     font-size: 1.2rem;
     color: #494949;
-  }
-`;
-
-// CommentList 컴포넌트
-const CommentList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1rem;
-
-  li {
-    margin-bottom: 0.5rem;
-  }
-
-  span {
-    margin-right: 0.5rem;
-    font-weight: bold;
-    color: #333;
+    margin-left: 1rem;
   }
 `;
 
@@ -189,6 +172,8 @@ const CommentAdd = styled.form`
   display: flex;
   border-top: 1px solid #ccc;
   padding-top: 0.7rem;
+  align-items: center;
+  justify-content: center;
 `;
 
 // CommentInput 컴포넌트
@@ -197,6 +182,7 @@ const CommentInput = styled.input`
   padding: 0.5rem;
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  border: none;
 
   &:focus {
     outline: none;
@@ -206,21 +192,35 @@ const CommentAddBtn = styled.button`
   font-size: 1.5rem;
   font-weight: bold;
   color: #359fe5;
+  border: none;
+  width: 70px;
+  margin-bottom: 1rem;
+  background-color: white;
   &:hover {
     color: #333;
   }
 `;
 
+const ContentWrapper = styled.div`
+  width: 40%;
+  margin-top: 0;
+  max-height: 100%;
+  overflow-y: auto;
+`;
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 400px;
+  height: 518px;
+  justify-content: flex-end;
 `;
 
 const FollowBtn = styled.button`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  margin-left: 20px;
   font-weight: bold;
   color: #359fe5;
+  border: none;
+  background-color: white;
   &:hover {
     color: #333;
   }
