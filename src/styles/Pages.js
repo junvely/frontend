@@ -57,7 +57,6 @@ export const StSideCon = styled.div`
   width: 100%;
   max-width: 335px;
   height: 100vh;
-  border: 1px solid;
   position: sticky;
   left: 0;
   top: 0;

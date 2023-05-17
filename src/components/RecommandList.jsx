@@ -8,67 +8,35 @@ import {
 } from "../styles/Components";
 import { Link } from "react-router-dom";
 import UserRecommand from "./UserRecommand";
+import { useQuery } from "react-query";
+import { getRandomPostsAxios } from "../apis/feed";
+import { postUser } from "../apis/post";
 
 function RecommandList() {
-  const data = [
-    {
-      nickname: "userId",
-      name: "제니",
-      UserId: 2,
-      postId: 3,
-      userPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-    },
-    {
-      nickname: "userId",
-      name: "제니",
-      UserId: 2,
-      postId: 3,
-      userPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-    },
-    {
-      nickname: "userId",
-      name: "제니",
-      UserId: 2,
-      postId: 3,
-      userPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-    },
-    {
-      nickname: "userId",
-      name: "제니",
-      UserId: 2,
-      postId: 3,
-      userPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-    },
-    {
-      nickname: "userId",
-      name: "제니",
-      UserId: 2,
-      postId: 3,
-      userPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-    },
-  ];
+  const { isLoading, isError, data } = useQuery("posts", getRandomPostsAxios);
+  const list = data ? data.slice(0, 6) : "";
+  const userData = useQuery("user", postUser);
 
   return (
     <StSection>
       <StMyCon>
-        <UserRecommand user={data[0]} myProfile={true}></UserRecommand>
+        {list && (
+          <UserRecommand user={userData.data} myProfile={true}></UserRecommand>
+        )}
       </StMyCon>
-      <StRecommand>
-        <StSubtitleCon>
-          <span>회원님을 위한 추천</span>
-          <Link to="#">모두 보기</Link>
-        </StSubtitleCon>
-        <StUserListCon>
-          {data?.map((user) => {
-            return <UserRecommand user={user}></UserRecommand>;
-          })}
-        </StUserListCon>
-      </StRecommand>
+      {list && (
+        <StRecommand>
+          <StSubtitleCon>
+            <span>회원님을 위한 추천</span>
+            <Link to="#">모두 보기</Link>
+          </StSubtitleCon>
+          <StUserListCon>
+            {list?.map((user) => {
+              return <UserRecommand user={user}></UserRecommand>;
+            })}
+          </StUserListCon>
+        </StRecommand>
+      )}
     </StSection>
   );
 }

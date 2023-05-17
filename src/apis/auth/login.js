@@ -13,10 +13,10 @@ const loginAxios = async (payload) => {
 
 const tokenVerifyAxios = async () => {
   try {
-    await instance.post("/api/verify");
+    await instance.post("/api/rtVerify");
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
-    alert(errorMessage);
+    console.log(errorMessage);
     throw error;
   }
 };

@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  if (config.headers === undefined) return;
+  if (config.headers === undefined) return config;
   const accessToken = sessionStorage.getItem("accessToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
   const userId = sessionStorage.getItem("userId");
@@ -26,9 +26,14 @@ instance.interceptors.response.use(
     const accessToken = response.data["accessToken"];
     const refreshToken = response.data["refreshToken"];
     const userId = response.data["userId"];
-    if (accessToken || refreshToken) {
+
+    if (accessToken) {
       sessionStorage.setItem("accessToken", accessToken);
+    }
+    if (refreshToken) {
       sessionStorage.setItem("refreshToken", refreshToken);
+    }
+    if (userId) {
       sessionStorage.setItem("userId", userId);
     }
     return response;
@@ -38,7 +43,7 @@ instance.interceptors.response.use(
     const errorMessage = error.response.data.errorMessage;
     console.log(errorMessage);
     // 액세스 토큰 만료시 리프레쉬 토큰 전달
-    if (errorMessage === "액세스 토큰이 만료되었습니다") {
+    if (errorMessage === "Access Token이 만료되었습니다.") {
       tokenVerifyAxios();
       // 리프레쉬 토큰 만료시 토큰 삭제 및 로그아웃 처리
     } else if (errorMessage === "리프레쉬 토큰이 만료되었습니다") {
@@ -51,22 +56,5 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// const verifyInstance = axios.create({
-//   baseURL: process.env.REACT_APP_SERVER,
-//   headers: {
-//     "Access-Control-Allow-Origin": "*",
-//   },
-// });
-
-// 토큰 verify instance
-// verifyInstance.interceptors.request.use((config) => {
-//   if (config.headers === undefined) return;
-//   const refreshToken = sessionStorage.getItem("refreshToken");
-//   const userId = sessionStorage.getItem("userId");
-//   config.headers["refreshToken"] = refreshToken;
-//   config.headers["userId"] = userId;
-//   return config;
-// });
 
 export { instance };

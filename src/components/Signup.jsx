@@ -35,17 +35,17 @@ function Signup() {
       setIsSendEmail(false);
     },
   });
-  // const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
-  //   onSuccess: () => {
-  //     setEmailChecking(true);
-  //     alert("이메일 검증이 완료되었습니다!");
-  //     resetEmailVerify();
-  //     setIsSendEmail(false);
-  //   },
-  //   onError: () => {
-  //     setEmailChecking(false);
-  //   },
-  // });
+  /*   const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
+    onSuccess: () => {
+      setEmailChecking(true);
+      alert("이메일 검증이 완료되었습니다!");
+      resetEmailVerify();
+      setIsSendEmail(false);
+    },
+    onError: () => {
+      setEmailChecking(false);
+    },
+  }); */
 
   const [loginActive, setLoginActive] = useState(false);
 
@@ -185,7 +185,7 @@ function Signup() {
         </StButton>
       </StEmailChecking>
       {/* 이메일 인증번호 입력란 => 이메일을 서버에 성공적으로 보내면 인증번호 입력란이 나타납니다. */}
-      {isSendEmail && emailChecking && (
+      {isSendEmail && !emailChecking && (
         <StEmailChecking>
           <div>
             <Input

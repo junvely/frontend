@@ -14,12 +14,12 @@ import Story from "../components/Story";
 import Feed from "../components/Feed";
 import RecommandList from "../components/RecommandList";
 import { useQuery } from "react-query";
-import { getMainPostsAxios } from "../apis/feed";
+import { getRandomPostsAxios } from "../apis/feed";
 import Sidebar from "../components/Sidebar";
 import { randomUserAxios } from "../apis/user";
 
-function MainPage() {
-  const { data } = useQuery("posts", getMainPostsAxios);
+function RandomPage() {
+  const { isLoading, isError, data } = useQuery("posts", getRandomPostsAxios);
   const storysData = useQuery("randomUser", randomUserAxios);
 
   return (
@@ -34,11 +34,7 @@ function MainPage() {
               {storysData?.data?.map((user) => {
                 return (
                   <StStoryBox>
-                    <Story
-                      width="66px"
-                      imageUrl={user.userPhoto}
-                      userId={user.UserId}
-                    ></Story>
+                    <Story width="66px" imageUrl={user.userPhoto}></Story>
                     <span>{user.nickname}</span>
                   </StStoryBox>
                 );
@@ -59,4 +55,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default RandomPage;
