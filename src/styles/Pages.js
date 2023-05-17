@@ -82,8 +82,8 @@ export const StFeedCon = styled.div`
 export const StRecommandCon = styled.div`
   width: 100%;
   max-width: 320px;
+  padding-top: 30px;
   height: 100vh;
-  border: 1px solid;
 `;
 
 export const StStoryList = styled(StFlexCon)`
