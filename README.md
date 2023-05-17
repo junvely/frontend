@@ -2,7 +2,7 @@
 
 > 인스타그램(InStagram)을 클론 코딩하여 만든 저희만의 아웃스타그램 SNS입니다.
 
-# ⚙️ FE Tech Stack
+## ⚙️ FE Tech Stack
 
 <div style="display: flex">
  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
@@ -15,21 +15,21 @@
   <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=black">
   </div>
 
-# ⚙️ BE Tech Stack
+## ⚙️ BE Tech Stack
 
-# 📒 17조 아웃스타그램 S.A 보러가기
+## 📒 17조 아웃스타그램 S.A 보러가기
 
 https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
-# 🖥️ 페이지 디자인
+## 🖥️ 페이지 디자인
 
 #### 메인 페이지
 
 #### 로그인 페이지
 
-# ⚙️ ERD
+## ⚙️ ERD
 
-# ✨ 프로젝트 기능 정리
+## ✨ 프로젝트 기능 정리
 
 1. 회원가입 : 이미지 업로드, 이미지 미리보기, 이메일 인증, 유효성 검사(버튼 활성화)
 
@@ -43,7 +43,7 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 6. 기타 : 유저 페이지, 마이 페이지 게시물 조회, 유저 검색 기능, 팔로잉, 팔로우, 팔로잉한 유저의 게시글만 조회, 랜덤 유저의 게시물 조회, 좋아요 기능 등
 
-# ❗페이지 예외 처리
+## ❗페이지 예외 처리
 
 ### FE 예외 처리
 
@@ -57,9 +57,9 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 ```
 
-# ✅ 트러블 슈팅 및 피드백 정리
+## ✅ 트러블 슈팅 및 피드백 정리
 
-## FE 트러블 슈팅
+### FE 트러블 슈팅
 
 ##### 1. 사용자 정보가 필요한 API요청에서 서버에 토큰을 전달할 때, headers 안에 set-cookie를 하여 전달하고자 하였는데 계속 access-token을 찾을 수 없다는 문제 발생.
 
@@ -73,7 +73,7 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 => formData는 특수한 객체 형태이기 때문에 formData 안의 키와 값은 console에 찍히지 않는다는 것을 깨닫고, for문으로 formData 내부를 순회하여 키와 값이 있음을 확인하고 서버에 전송할 수 있었다.
 ```
 
-## BE 트러블 슈팅
+### BE 트러블 슈팅
 
 <!-- ### 패키지 설치
 
