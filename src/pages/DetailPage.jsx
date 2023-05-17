@@ -9,7 +9,6 @@ import { useParams } from "react-router";
 import { useQuery } from "react-query";
 
 function DetailPage() {
-  const authorization = sessionStorage.getItem("accessToken");
   const [comment, setComment] = useState("");
   /*   const [item, setItem] = useState([]); */
   const queryClient = useQueryClient;
@@ -22,7 +21,7 @@ function DetailPage() {
 
   const commentSubmitButtonHandler = (e) => {
     e.preventDefault();
-    commentSubmitMutation.mutate({ comment, authorization });
+    commentSubmitMutation.mutate(comment);
     setComment("");
   };
   // 현재 페이지 URL에서 postId 추출
@@ -30,7 +29,7 @@ function DetailPage() {
   const postId = params.id;
 
   const { isLoading, isError, data } = useQuery("detail", () =>
-    detailRequest({ postId, authorization })
+    detailRequest(postId)
   );
   if (isLoading) {
     return <p>로딩중입니다!</p>;

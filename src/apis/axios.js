@@ -17,7 +17,7 @@ instance.interceptors.request.use((config) => {
     config.headers["accessToken"] = accessToken;
     config.headers["refreshToken"] = refreshToken;
     config.headers["userId"] = userId;
-  }
+
   return config;
 });
 
