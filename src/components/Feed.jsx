@@ -39,6 +39,7 @@ function Feed({ post }) {
     name,
     userPhoto,
     commentsCount,
+    isliked,
   } = post;
 
   const handleClickLikeButton = () => {
@@ -65,7 +66,7 @@ function Feed({ post }) {
       <StFeedTitle>
         <StUserInfo>
           <Story width="42px" imageUrl={userPhoto} userId={UserId}></Story>
-          <Link to={`/user/:${UserId}`}>{nickname}</Link>
+          <Link to={`/user/${UserId}`}>{nickname}</Link>
         </StUserInfo>
         <TfiMoreAlt style={{ color: "#222" }} />
       </StFeedTitle>
@@ -74,7 +75,7 @@ function Feed({ post }) {
       </StPhoto>
       <StButtons>
         <StLeftCon>
-          {post?.isLiked ? (
+          {post?.isliked ? (
             <button>
               <MdFavorite
                 style={{ color: "#ff3040", fontSize: "28px" }}
@@ -92,7 +93,7 @@ function Feed({ post }) {
                 transform: "scaleX(-1)",
               }}
               onClick={() => {
-                navigate(`/main/:${UserId}`);
+                navigate(`/main/${postId}`);
               }}
             />
           </button>
@@ -110,21 +111,21 @@ function Feed({ post }) {
         </span>
         <span
           onClick={() => {
-            navigate(`/main/:${UserId}`);
+            navigate(`/main/${postId}`);
           }}
         >
           <b>{nickname}</b> {content}
         </span>
         <p
           onClick={() => {
-            navigate(`/main/:${UserId}`);
+            navigate(`/main/${postId}`);
           }}
         >
           댓글 {commentsCount}개 모두 보기
         </p>
         <p
           onClick={() => {
-            navigate(`/main/:${UserId}`);
+            navigate(`/main/${postId}`);
           }}
         >
           댓글 달기...
