@@ -39,6 +39,7 @@ function Feed({ post }) {
     name,
     userPhoto,
     commentsCount,
+    isliked,
   } = post;
 
   const handleClickLikeButton = () => {
@@ -65,7 +66,7 @@ function Feed({ post }) {
       <StFeedTitle>
         <StUserInfo>
           <Story width="42px" imageUrl={userPhoto} userId={UserId}></Story>
-          <Link to={`/user/${UserId}`}>{nickname}</Link>
+          <Link to={`/users/${UserId}`}>{nickname}</Link>
         </StUserInfo>
         <TfiMoreAlt style={{ color: "#222" }} />
       </StFeedTitle>
@@ -74,7 +75,7 @@ function Feed({ post }) {
       </StPhoto>
       <StButtons>
         <StLeftCon>
-          {post?.isLiked ? (
+          {post?.isliked ? (
             <button>
               <MdFavorite
                 style={{ color: "#ff3040", fontSize: "28px" }}

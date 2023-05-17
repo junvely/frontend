@@ -11,10 +11,21 @@ const getMainPostsAxios = async () => {
   }
 };
 
+const getRandomPostsAxios = async () => {
+  try {
+    const { data } = await instance.get("/api/postsrandom");
+    return data;
+  } catch (error) {
+    const errorMessage = error.response.data.errorMessage;
+    console.log(errorMessage);
+    throw error;
+  }
+};
+
 const isLikeAxios = async (id) => {
   console.log(id);
   try {
-    const { data } = await instance.get(`/api/posts/:${id}/like`);
+    const { data } = await instance.put(`/api/posts/${id}/like`);
     return data.data;
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
@@ -23,4 +34,4 @@ const isLikeAxios = async (id) => {
   }
 };
 
-export { getMainPostsAxios, isLikeAxios };
+export { getMainPostsAxios, isLikeAxios, getRandomPostsAxios };

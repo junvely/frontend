@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import { commentRequest, commentDelete } from "../apis/api";
@@ -6,15 +6,18 @@ import { QueryClient, useMutation } from "react-query";
 
 function Comments({ postId }) {
   console.log("postId 객체", postId);
+
   const { isLoading, isError, data } = useQuery("comments", () =>
     commentRequest(postId)
   );
+
   if (isLoading) {
     return <p>로딩중입니다!</p>;
   }
   if (isError) {
     return <p>오류가 발생하였습니다!</p>;
   }
+
   /*   const commentDeleteMutation = useMutation(commentDelete, {
     onSuccess: () => {
       queryClient.invalidateQueries("detail", detailRequest);
@@ -46,10 +49,10 @@ function Comments({ postId }) {
   }; */
   console.log("data", data);
   return (
-    <CommentList>
-      {data.commentsData?.map((item) => {
-        return (
-          <li>
+    <CommentsContainer>
+      <CommentsList>
+        {data.commentsData?.map((item) => (
+          <li key={item.commentId}>
             <CommentItem key={item.commentId}>
               <UserImage src={item.userPhoto} />
               <UserInfo>
@@ -58,14 +61,15 @@ function Comments({ postId }) {
               </UserInfo>
             </CommentItem>
           </li>
-        );
-      })}
-    </CommentList>
+        ))}
+      </CommentsList>
+    </CommentsContainer>
   );
 }
-
+{
+}
 export default Comments;
-// CommentList 컴포넌트
+
 const CommentList = styled.ul`
   list-style: none;
   padding-left: 1rem;
@@ -73,7 +77,6 @@ const CommentList = styled.ul`
   color: #333;
   overflow-y: auto;
 `;
-
 const CommentItem = styled.li`
   display: flex;
   align-items: center;
@@ -85,8 +88,8 @@ const CommentItem = styled.li`
 const UserImage = styled.img`
   background-size: cover;
   background-position: center;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   margin-right: 0.5rem;
 `;
@@ -108,4 +111,25 @@ const UserInfo = styled.div`
     color: #333;
     margin: 0;
   }
+`;
+const CommentsContainer = styled.div`
+  margin-top: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+`;
+/* const CommentsContainer = styled.div`
+  margin-top: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+`; */
+
+const CommentsList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
 `;

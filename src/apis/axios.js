@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  if (config.headers === undefined) return;
+  if (config.headers === undefined) return config;
   const accessToken = sessionStorage.getItem("accessToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
   const userId = sessionStorage.getItem("userId");
@@ -26,11 +26,23 @@ instance.interceptors.response.use(
     const accessToken = response.data["accessToken"];
     const refreshToken = response.data["refreshToken"];
     const userId = response.data["userId"];
-    if (accessToken || refreshToken) {
+
+    if (accessToken) {
+      sessionStorage.setItem("accessToken", accessToken);
+    }
+    if (refreshToken) {
+      sessionStorage.setItem("refreshToken", refreshToken);
+    }
+    if (userId) {
+      sessionStorage.setItem("userId", userId);
+    }
+    /* if (accessToken && refreshToken) {
       sessionStorage.setItem("accessToken", accessToken);
       sessionStorage.setItem("refreshToken", refreshToken);
       sessionStorage.setItem("userId", userId);
-    }
+    } else {
+      sessionStorage.setItem("accessToken", accessToken);
+    } */
     return response;
   },
 
@@ -51,22 +63,5 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// const verifyInstance = axios.create({
-//   baseURL: process.env.REACT_APP_SERVER,
-//   headers: {
-//     "Access-Control-Allow-Origin": "*",
-//   },
-// });
-
-// 토큰 verify instance
-// verifyInstance.interceptors.request.use((config) => {
-//   if (config.headers === undefined) return;
-//   const refreshToken = sessionStorage.getItem("refreshToken");
-//   const userId = sessionStorage.getItem("userId");
-//   config.headers["refreshToken"] = refreshToken;
-//   config.headers["userId"] = userId;
-//   return config;
-// });
 
 export { instance };

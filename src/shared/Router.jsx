@@ -7,6 +7,7 @@ import UserPage from "../pages/UserPage";
 import AccountPage from "../pages/AccountPage";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
+import RandomPage from "../pages/RandomPage";
 
 function Router() {
   return (
@@ -17,9 +18,10 @@ function Router() {
           <Route path="/signup" element={<Signup />}></Route>
         </Route>
         <Route path="/main" element={<MainPage />}></Route>
+        <Route path="/random" element={<RandomPage />}></Route>
         <Route path="/main/:id" element={<DetailPage />}></Route>
         <Route path="/my" element={<MyPage />}></Route>
-        <Route path="/posts/:id" element={<UserPage />}></Route>
+        <Route path="/users/:id" element={<UserPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
