@@ -35,17 +35,17 @@ function Signup() {
       setIsSendEmail(false);
     },
   });
-  // const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
-  //   onSuccess: () => {
-  //     setEmailChecking(true);
-  //     alert("이메일 검증이 완료되었습니다!");
-  //     resetEmailVerify();
-  //     setIsSendEmail(false);
-  //   },
-  //   onError: () => {
-  //     setEmailChecking(false);
-  //   },
-  // });
+  /*   const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
+    onSuccess: () => {
+      setEmailChecking(true);
+      alert("이메일 검증이 완료되었습니다!");
+      resetEmailVerify();
+      setIsSendEmail(false);
+    },
+    onError: () => {
+      setEmailChecking(false);
+    },
+  }); */
 
   const [loginActive, setLoginActive] = useState(false);
 
@@ -77,13 +77,13 @@ function Signup() {
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
 
   // 이메일 에러 메세지
-  /*  const emailMessage = useMemo(() => {
+  const emailMessage = useMemo(() => {
     if (email && !emailRegex.test(email)) {
       return "이메일을 확인해 주세요";
     } else {
       return "";
     }
-  }, [email]); */
+  }, [email]);
 
   // 패스워드 에러메세지
   const passwordMessage = useMemo(() => {
@@ -101,7 +101,7 @@ function Signup() {
       !form.password ||
       !form.name ||
       !form.nickname ||
-      /*   emailMessage || */
+      emailMessage ||
       passwordMessage
     ) {
       setLoginActive(false);

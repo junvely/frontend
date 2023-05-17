@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { userRequest } from "../apis/user";
+import { StSideCon } from "../styles/Pages";
+import Sidebar from "../components/Sidebar";
 
 function MyPage() {
   // 현재 페이지 URL에서 userId 추출
@@ -22,6 +24,9 @@ function MyPage() {
   const showFollow = () => {};
   return (
     <>
+      <StSideCon>
+        <Sidebar />
+      </StSideCon>
       <ProfileSection>
         <ProfilePicture src="프로필 사진 URL" />
         <ProfileInfo>

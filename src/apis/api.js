@@ -16,14 +16,16 @@ const detailRequest = async (postId) => {
 const commentRequest = async (postId) => {
   try {
     const response = await instance.get(`/api/posts/${postId}/comments`);
-    console.log(response.data);
+    console.log(response);
     return response.data;
   } catch (error) {
     return Promise.reject(error.response);
   }
 };
+
 // 댓글 작성 api, method : post, url : /api/posts/:postId/comments
 const commentSubmit = async ({ postId, comment }) => {
+  console.log("api", comment);
   try {
     const response = await instance.post(`/api/posts/${postId}/comments`, {
       comment,

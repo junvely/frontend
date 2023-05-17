@@ -208,7 +208,7 @@ const ModalContents = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr; /* 이미지 영역과 작성 영역의 비율을 설정합니다. */
+  grid-template-columns: 2fr 1fr; /* 이미지 영역과 작성 영역의 비율을 설정 */
 `;
 const UploadImageArea = styled.div`
   display: flex;
@@ -226,7 +226,7 @@ const ModalPosition = styled.div`
   transform: translate(-50%, -50%);
   width: 100vw;
   height: 100vh;
-  z-index: 300;
+  z-index: 500;
   display: flex;
   justify-content: center;
   align-items: center;
