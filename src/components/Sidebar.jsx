@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import PostingModal from "./PostingModal";
 import { postUser } from "../apis/post";
 import { useQuery } from "react-query";
+import SearchToggle from "./SearchToggle";
 
 function Sidebar() {
   const userId = sessionStorage.getItem("userId");
@@ -22,63 +23,66 @@ function Sidebar() {
   };
 
   return (
-    <SidebarContainer>
-      <Logo src="로고 이미지 URL" alt="로고" />
+    <>
+      <SearchToggle></SearchToggle>
+      <SidebarContainer>
+        <Logo src="로고 이미지 URL" alt="로고" />
 
-      <SidebarContent>
-        <TabButton
-          onClick={() => {
-            navigate("/main");
-          }}
-        >
-          <MdHomeFilled />
-          <TabText>홈</TabText>
-        </TabButton>
-        <TabButton>
-          <BiSearch />
-          <TabText>검색</TabText>
-        </TabButton>
-        <TabButton
-          onClick={() => {
-            navigate("/random");
-          }}
-        >
-          <AiOutlineCompass />
-          <TabText>탐색</TabText>
-        </TabButton>
-        <TabButton>
-          <IoPaperPlaneOutline />
-          <TabText>메시지</TabText>
-        </TabButton>
-        <TabButton>
-          <HiOutlineHeart />
-          <TabText>알림</TabText>
-        </TabButton>
-        <TabButton onClick={changeModal}>
-          <FiPlusSquare />
-          <TabText>만들기</TabText>
-        </TabButton>
-        {modal && (
-          <>
-            <PostingModal changeModal={changeModal} />
-          </>
-        )}
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : isError ? (
-          <div>Error occurred.</div>
-        ) : (
+        <SidebarContent>
           <TabButton
             onClick={() => {
-              navigate(`/posts/${userId}`);
+              navigate("/main");
             }}
           >
-            <UserImage src={data.userPhoto} />
-            <TabText>프로필</TabText>
+            <MdHomeFilled />
+            <TabText>홈</TabText>
           </TabButton>
-        )}
-      </SidebarContent>
-    </SidebarContainer>
+          <TabButton>
+            <BiSearch />
+            <TabText>검색</TabText>
+          </TabButton>
+          <TabButton
+            onClick={() => {
+              navigate("/random");
+            }}
+          >
+            <AiOutlineCompass />
+            <TabText>탐색</TabText>
+          </TabButton>
+          <TabButton>
+            <IoPaperPlaneOutline />
+            <TabText>메시지</TabText>
+          </TabButton>
+          <TabButton>
+            <HiOutlineHeart />
+            <TabText>알림</TabText>
+          </TabButton>
+          <TabButton onClick={changeModal}>
+            <FiPlusSquare />
+            <TabText>만들기</TabText>
+          </TabButton>
+          {modal && (
+            <>
+              <PostingModal changeModal={changeModal} />
+            </>
+          )}
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : isError ? (
+            <div>Error occurred.</div>
+          ) : (
+            <TabButton
+              onClick={() => {
+                navigate(`/posts/${userId}`);
+              }}
+            >
+              <UserImage src={data.userPhoto} />
+              <TabText>프로필</TabText>
+            </TabButton>
+          )}
+        </SidebarContent>
+      </SidebarContainer>
+    </>
   );
 }
 

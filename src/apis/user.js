@@ -40,4 +40,19 @@ const followerRequest = async (userId) => {
   }
 };
 
-export { userRequest, userFollow, followRequest, followerRequest };
+const searchUserAxios = async (value) => {
+  try {
+    const { data } = await instance.get(`/api/search/?search=${value}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export {
+  userRequest,
+  userFollow,
+  followRequest,
+  followerRequest,
+  searchUserAxios,
+};
