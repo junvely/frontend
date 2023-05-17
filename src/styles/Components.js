@@ -168,6 +168,7 @@ export const StButtons = styled(StFlexCon)`
       color: #222;
       font-size: 24px;
       cursor: pointer;
+      z-index: -1;
     }
   }
 `;
