@@ -6,6 +6,15 @@ function UserRecommand({ user, myProfile }) {
   const navigate = useNavigate();
   const { name, userPhoto, nickname, UserId } = user;
 
+  const logout = (e) => {
+    e.stopPropagation();
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("userId");
+    alert("로그아웃 되었습니다.");
+    navigate("/");
+  };
+
   return (
     <ProfileCon
       myProfile={myProfile}
@@ -18,7 +27,7 @@ function UserRecommand({ user, myProfile }) {
         <span> {nickname}</span>
         <p> {myProfile ? name : "회원님을 위한 추천"}</p>
       </StUserName>
-      <span>{myProfile ? "전환" : "팔로우"}</span>
+      {myProfile ? <span onClick={logout}>전환</span> : <span>팔로우</span>}
     </ProfileCon>
   );
 }

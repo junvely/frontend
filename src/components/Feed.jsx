@@ -36,7 +36,6 @@ function Feed({ post }) {
     postPhoto,
     likesCount,
     nickname,
-    name,
     userPhoto,
     commentsCount,
     isliked,
@@ -45,21 +44,6 @@ function Feed({ post }) {
   const handleClickLikeButton = () => {
     mutation.mutate(postId);
   };
-
-  // const post = {
-  //   nickname: "userId",
-  //   UserId: 2,
-  //   postId: 3,
-  //   userPhoto:
-  //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AC83dgCYgZvSZOzrjZ1noTeUgba7A2S2fQ&usqp=CAU",
-  //   postPhoto:
-  //     "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2021/11/13/mgtFv6a0SQ4L637724194204501826.jpg",
-  //   content: "어쩌구저쩌구",
-  //   likesCount: 9,
-  //   commentsCount: 5,
-  //   isLiked: true,
-  //   follow: true,
-  // };
 
   return (
     <Stwrap>
