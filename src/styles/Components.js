@@ -276,11 +276,12 @@ export const StSearchCon = styled.div`
   position: absolute;
   top: 0;
   left: 60px;
-  z-index: 1000;
+  z-index: 200;
   background-color: #fff;
   border: 1px solid rgb(219, 219, 219);
   border-top-right-radius: 15px;
   overflow-y: auto;
+  transition: all 0.3s;
 `;
 
 export const StSearchInnerCon = styled.div`
@@ -311,7 +312,7 @@ export const StInputCon = styled.div`
   }
 
   input {
-    width: 80%;
+    width: 100%;
     height: 40px;
     font-size: 16px;
     line-height: 25px;

@@ -16,18 +16,24 @@ function Sidebar() {
   const userId = sessionStorage.getItem("userId");
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { isLoading, isError, data } = useQuery("user", postUser);
 
   const changeModal = () => {
     setModal(!modal);
   };
 
+  const searchBarToggle = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
   return (
     <>
-      <SearchToggle></SearchToggle>
+      {isSearchOpen && (
+        <SearchToggle isSearchOpen={isSearchOpen}></SearchToggle>
+      )}
       <SidebarContainer>
         <Logo src="로고 이미지 URL" alt="로고" />
-
         <SidebarContent>
           <TabButton
             onClick={() => {
@@ -38,7 +44,7 @@ function Sidebar() {
             <TabText>홈</TabText>
           </TabButton>
           <TabButton>
-            <BiSearch />
+            <BiSearch onClick={searchBarToggle} />
             <TabText>검색</TabText>
           </TabButton>
           <TabButton

@@ -17,17 +17,15 @@ import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import { searchUserAxios } from "../apis/user";
 
-function SearchToggle() {
+function SearchToggle({ isSearchOpen }) {
   const navigate = useNavigate();
   const [input, searchInputChange] = useInput();
   const { data, refetch } = useQuery("search", () => searchUserAxios(input), {
     enabled: false,
   });
+  console.log(isSearchOpen);
 
   const [searchList, setSearchList] = useState(data);
-
-  console.log("data:", data);
-  console.log("searchList:", searchList);
 
   const handleClickSearchData = (e) => {
     refetch();
@@ -39,22 +37,29 @@ function SearchToggle() {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (isSearchOpen === false) {
+      console.log("close");
+      setSearchList("");
+    }
+  }, [isSearchOpen]);
+
   return (
     <StSearchCon>
       <StSearchInnerCon>
         <h5>검색</h5>
       </StSearchInnerCon>
       <StInputCon>
-        <CiSearch
-          styled={{ width: "30px", color: "#737373" }}
-          onClick={handleClickSearchData}
-        />
         <input
           type="text"
           value={input}
           onChange={searchInputChange}
           placeHolder="검색"
         ></input>
+        <CiSearch
+          styled={{ width: "30px", color: "#737373" }}
+          onClick={handleClickSearchData}
+        />
       </StInputCon>
       <StResultCon>
         <StResult>

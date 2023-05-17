@@ -49,10 +49,20 @@ const searchUserAxios = async (value) => {
   }
 };
 
+const randomUserAxios = async () => {
+  try {
+    const { data } = await instance.get("/api/usersrandom");
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   userRequest,
   userFollow,
   followRequest,
   followerRequest,
   searchUserAxios,
+  randomUserAxios,
 };
