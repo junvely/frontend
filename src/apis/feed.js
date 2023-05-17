@@ -14,7 +14,7 @@ const getMainPostsAxios = async () => {
 const isLikeAxios = async (id) => {
   console.log(id);
   try {
-    const { data } = await instance.get(`/api/posts/:${id}/like`);
+    const { data } = await instance.put(`/api/posts/${id}/like`);
     return data.data;
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;

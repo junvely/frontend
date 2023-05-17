@@ -21,24 +21,15 @@ const signupAxios = async (payload) => {
 };
 
 const sendEmailAxios = async (email) => {
+  console.log("email:", email);
   try {
-    const { data } = await instance.get("/api/", email);
-    return data;
+    const { data } = await instance.post("/api/mail", { mail: email });
+    return data.authNum;
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
     alert(errorMessage);
     throw error;
   }
 };
-
-// const emailVerifyNumAxios = async (num) => {
-//   try {
-//     await instance.get("/api/", num);
-//   } catch (error) {
-//     const errorMessage = error.response.data.errorMessage;
-//     alert(errorMessage);
-//     throw error;
-//   }
-// };
 
 export { signupAxios, sendEmailAxios };

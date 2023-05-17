@@ -77,13 +77,13 @@ function Signup() {
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
 
   // 이메일 에러 메세지
-  /*  const emailMessage = useMemo(() => {
+  const emailMessage = useMemo(() => {
     if (email && !emailRegex.test(email)) {
       return "이메일을 확인해 주세요";
     } else {
       return "";
     }
-  }, [email]); */
+  }, [email]);
 
   // 패스워드 에러메세지
   const passwordMessage = useMemo(() => {
@@ -101,7 +101,7 @@ function Signup() {
       !form.password ||
       !form.name ||
       !form.nickname ||
-      /*   emailMessage || */
+      emailMessage ||
       passwordMessage
     ) {
       setLoginActive(false);
@@ -185,7 +185,7 @@ function Signup() {
         </StButton>
       </StEmailChecking>
       {/* 이메일 인증번호 입력란 => 이메일을 서버에 성공적으로 보내면 인증번호 입력란이 나타납니다. */}
-      {isSendEmail && emailChecking && (
+      {isSendEmail && !emailChecking && (
         <StEmailChecking>
           <div>
             <Input
