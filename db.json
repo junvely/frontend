@@ -1,19 +1,50 @@
 {
-  "posts": [
+  "post": {
+    "postId": 1,
+    "nickname": "yeoni-drawing",
+    "postPhoto": "",
+    "likesCount": 12,
+    "userPhoto": ""
+  },
+  "commentsData": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "PostId": 1,
+      "commentId": 1,
+      "nickname": "otattoo",
+      "comment": "도안 예뻐요!",
+      "userPhoto": ""
+    },
+    {
+      "PostId": 1,
+      "commentId": 2,
+      "nickname": "meal-poke",
+      "comment": "짱귀욤",
+      "userPhoto": ""
+    },
+    {
+      "PostId": 1,
+      "commentId": 3,
+      "nickname": "yeoni-drawing",
+      "comment": "헐 ㅠㅠㅠㅠ",
+      "userPhoto": ""
     }
   ],
-  "comments": [
+  "users": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "email": "test@test.com",
+      "password": "test1234",
+      "name": "test",
+      "nickname": "test",
+      "userPhoto": "",
+      "id": 1
+    },
+    {
+      "email": "test@test.com",
+      "password": "test1234",
+      "name": "test",
+      "nickname": "test",
+      "userPhoto": "",
+      "id": 2
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
