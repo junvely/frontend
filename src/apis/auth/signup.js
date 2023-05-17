@@ -22,7 +22,8 @@ const signupAxios = async (payload) => {
 
 const sendEmailAxios = async (email) => {
   try {
-    await instance.get("/api/", email);
+    const { data } = await instance.get("/api/", email);
+    return data;
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
     alert(errorMessage);
@@ -30,14 +31,14 @@ const sendEmailAxios = async (email) => {
   }
 };
 
-const emailVerifyNumAxios = async (num) => {
-  try {
-    await instance.get("/api/", num);
-  } catch (error) {
-    const errorMessage = error.response.data.errorMessage;
-    alert(errorMessage);
-    throw error;
-  }
-};
+// const emailVerifyNumAxios = async (num) => {
+//   try {
+//     await instance.get("/api/", num);
+//   } catch (error) {
+//     const errorMessage = error.response.data.errorMessage;
+//     alert(errorMessage);
+//     throw error;
+//   }
+// };
 
-export { signupAxios, sendEmailAxios, emailVerifyNumAxios };
+export { signupAxios, sendEmailAxios };

@@ -3,11 +3,7 @@ import Input from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm.js";
 import { Colors } from "../styles/GlobalStyles";
-import {
-  emailVerifyNumAxios,
-  sendEmailAxios,
-  signupAxios,
-} from "../apis/auth/signup";
+import { sendEmailAxios, signupAxios } from "../apis/auth/signup";
 import { useMutation } from "react-query";
 import {
   StButton,
@@ -30,25 +26,26 @@ function Signup() {
     },
   });
   const sendEmailMutation = useMutation(sendEmailAxios, {
-    onSuccess: () => {
+    onSuccess: (num) => {
       setIsSendEmail(true);
+      setEmailVerifyNum(num);
       alert("회원님의 이메일로 인증번호를 전송했습니다!");
     },
     onError: () => {
       setIsSendEmail(false);
     },
   });
-  const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
-    onSuccess: () => {
-      setEmailChecking(true);
-      alert("이메일 검증이 완료되었습니다!");
-      resetEmailVerify();
-      setIsSendEmail(false);
-    },
-    onError: () => {
-      setEmailChecking(false);
-    },
-  });
+  // const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
+  //   onSuccess: () => {
+  //     setEmailChecking(true);
+  //     alert("이메일 검증이 완료되었습니다!");
+  //     resetEmailVerify();
+  //     setIsSendEmail(false);
+  //   },
+  //   onError: () => {
+  //     setEmailChecking(false);
+  //   },
+  // });
 
   const [loginActive, setLoginActive] = useState(false);
 
@@ -63,15 +60,15 @@ function Signup() {
   // 폼 데이터 입력값 받는 Hook
   const [form, handleFormChange, handleFileChange, resetForm] =
     useForm(initialState);
-  const { email, password, name, nickname } = form;
+  const { email, password, name, nickname, userPhoto } = form;
 
   // 이미지 URL 리더 Hook
   const [imageUrl, fileReader] = useFileReader();
 
   // 이메일 인증 번호 관련 state
+  const [userInputNum, handleUserInputNumChange, resetUserInput] = useInput("");
+  const [emailVerifyNum, setEmailVerifyNum] = useState("");
   const [isSendEmail, setIsSendEmail] = useState(false);
-  const [emailVerifyNum, handleEmailVerifyNumChange, resetEmailVerify] =
-    useInput("");
   const [emailChecking, setEmailChecking] = useState(false);
 
   // 정규식
@@ -115,17 +112,18 @@ function Signup() {
 
   // 이메일 서버에 전송 api
   const handleClickEmailChecking = () => {
-    alert("서비스 예정입니다.");
-    return;
     sendEmailMutation.mutate(email);
   };
 
   // 이메일 인증번호 확인 api
   const handleClickEmailVerifyNumChecking = () => {
-    if (emailVerifyNum) {
-      emailVerifyMutation.mutate(emailVerifyNum);
-    } else {
+    if (!userInputNum) {
       alert("인증번호를 입력해 주세요.");
+    } else if (userInputNum === emailVerifyNum) {
+      setEmailChecking(true);
+    } else {
+      alert("인증번호가 틀렸습니다. 다시 확인해 주세요.");
+      setEmailChecking(false);
     }
   };
 
@@ -144,8 +142,8 @@ function Signup() {
 
   // 이미지 파일 리더
   const imageFileReader = async () => {
-    if (form.userPhoto) {
-      fileReader(form.userPhoto);
+    if (userPhoto) {
+      fileReader(userPhoto);
     }
   };
 
@@ -155,7 +153,7 @@ function Signup() {
 
   useEffect(() => {
     imageFileReader();
-  }, [form.userPhoto]);
+  }, [userPhoto]);
 
   return (
     <>
@@ -187,14 +185,14 @@ function Signup() {
         </StButton>
       </StEmailChecking>
       {/* 이메일 인증번호 입력란 => 이메일을 서버에 성공적으로 보내면 인증번호 입력란이 나타납니다. */}
-      {isSendEmail && (
+      {isSendEmail && emailChecking && (
         <StEmailChecking>
           <div>
             <Input
               type="text"
-              value={emailVerifyNum}
+              value={userInputNum}
               placeHolder="인증번호 입력"
-              onChange={handleEmailVerifyNumChange}
+              onChange={handleUserInputNumChange}
               message="인증번호를 입력해 주세요"
             />
           </div>
