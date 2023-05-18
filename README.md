@@ -39,6 +39,8 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 ## ⚙️ ERD
 
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d988fc37-c52e-4b3e-b92d-2d01ab2aacd5/Untitled.png)
+
 <br>
 
 ## ✨ 프로젝트 기능 정리
