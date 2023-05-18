@@ -73,9 +73,9 @@ function Feed({ post }) {
           )}
           <button>
             <FaRegComment
-              style={{
+              /*  style={{
                 transform: "scaleX(-1)",
-              }}
+              }} */
               onClick={() => {
                 navigate(`/main/${postId}`);
               }}

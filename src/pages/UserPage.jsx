@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router";
 import { userFollow, userRequest } from "../apis/user";
@@ -30,6 +30,7 @@ function UserPage() {
     followMutation.mutate(userId);
     setFollowStatus(!followStatus);
   };
+
   const [showFollowerModal, setShowFollowerModal] = useState(false);
   const [showFollowModal, setShowFollowModal] = useState(false);
 
