@@ -39,7 +39,7 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 ## ⚙️ ERD
 
-![ERD](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d988fc37-c52e-4b3e-b92d-2d01ab2aacd5/Untitled.png)
+![ERD](https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c?pvs=4#4c3aefd81a974540a8c0635ea533b798)
 
 <br>
 
