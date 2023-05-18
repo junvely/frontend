@@ -12,6 +12,7 @@ import {
 } from "../styles/Components";
 import { MdFavorite } from "react-icons/md";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { FaRegComment } from "react-icons/fa";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { GrBookmark } from "react-icons/gr";
@@ -72,10 +73,7 @@ function Feed({ post }) {
             </button>
           )}
           <button>
-            <FaRegComment
-              /*  style={{
-                transform: "scaleX(-1)",
-              }} */
+            <HiOutlineChatBubbleOvalLeft
               onClick={() => {
                 navigate(`/main/${postId}`);
               }}

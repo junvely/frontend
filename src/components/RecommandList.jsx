@@ -11,10 +11,11 @@ import UserRecommand from "./UserRecommand";
 import { useQuery } from "react-query";
 import { getRandomPostsAxios } from "../apis/feed";
 import { postUser } from "../apis/post";
+import { randomUserAxios } from "../apis/user";
 
 function RecommandList() {
-  const { isLoading, isError, data } = useQuery("posts", getRandomPostsAxios);
-  const list = data ? data.slice(0, 6) : "";
+  const { data } = useQuery("randomUser", randomUserAxios);
+  const list = data ? data.slice(0, 5) : "";
   const userData = useQuery("user", postUser);
 
   return (
@@ -32,7 +33,9 @@ function RecommandList() {
           </StSubtitleCon>
           <StUserListCon>
             {list?.map((user) => {
-              return <UserRecommand user={user}></UserRecommand>;
+              return (
+                <UserRecommand user={user} key={user.UserId}></UserRecommand>
+              );
             })}
           </StUserListCon>
         </StRecommand>

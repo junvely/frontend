@@ -23,7 +23,6 @@ function SearchToggle({ isSearchOpen }) {
   const { data, refetch } = useQuery("search", () => searchUserAxios(input), {
     enabled: false,
   });
-  console.log(isSearchOpen);
 
   const [searchList, setSearchList] = useState(data);
 
@@ -66,7 +65,7 @@ function SearchToggle({ isSearchOpen }) {
           <StTitle>유저 검색</StTitle>
           {searchList?.users?.map((search) => {
             return (
-              <>
+              <div key={search.userId}>
                 <StUserCon onClick={() => navigate(`/posts/${search.UserId}`)}>
                   <Story
                     width="54px"
@@ -78,7 +77,7 @@ function SearchToggle({ isSearchOpen }) {
                     <p> {search.name}</p>
                   </StUserNameCon>
                 </StUserCon>
-              </>
+              </div>
             );
           })}
         </StResult>
@@ -86,7 +85,7 @@ function SearchToggle({ isSearchOpen }) {
           <StTitle>게시물 검색</StTitle>
           {searchList?.posts?.map((search) => {
             return (
-              <>
+              <div key={search.postId}>
                 <StUserCon onClick={() => navigate(`/main/${search.postId}`)}>
                   <Story
                     width="54px"
@@ -98,7 +97,7 @@ function SearchToggle({ isSearchOpen }) {
                     <p> {search.name}</p>
                   </StUserNameCon>
                 </StUserCon>
-              </>
+              </div>
             );
           })}
         </StResult>

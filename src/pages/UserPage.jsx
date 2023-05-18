@@ -18,7 +18,7 @@ function UserPage() {
   const { isLoading, isError, data } = useQuery("userInfo", () =>
     userRequest(userId)
   );
-  console.log("userpage", data);
+
   const followMutation = useMutation(userFollow, {
     onSuccess: () => {
       queryClient.invalidateQueries("user");

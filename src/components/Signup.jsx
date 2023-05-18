@@ -35,17 +35,6 @@ function Signup() {
       setIsSendEmail(false);
     },
   });
-  /*   const emailVerifyMutation = useMutation(emailVerifyNumAxios, {
-    onSuccess: () => {
-      setEmailChecking(true);
-      alert("이메일 검증이 완료되었습니다!");
-      resetEmailVerify();
-      setIsSendEmail(false);
-    },
-    onError: () => {
-      setEmailChecking(false);
-    },
-  }); */
 
   const [loginActive, setLoginActive] = useState(false);
 
@@ -75,6 +64,8 @@ function Signup() {
   const emailRegex =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
+
+  console.log(emailVerifyNum);
 
   // 이메일 에러 메세지
   const emailMessage = useMemo(() => {
@@ -174,7 +165,7 @@ function Signup() {
           <Input
             type="text"
             name="email"
-            value={email}
+            value={email || ""}
             placeHolder="이메일 주소"
             onChange={handleFormChange}
             message={emailMessage}
@@ -190,7 +181,7 @@ function Signup() {
           <div>
             <Input
               type="text"
-              value={userInputNum}
+              value={userInputNum || ""}
               placeHolder="인증번호 입력"
               onChange={handleUserInputNumChange}
               message="인증번호를 입력해 주세요"
@@ -204,19 +195,19 @@ function Signup() {
       <Input
         type="text"
         name="name"
-        value={name}
+        value={name || ""}
         placeHolder="성명"
         onChange={handleFormChange}
       />
       <Input
         type="text"
         name="nickname"
-        value={nickname}
+        value={nickname || ""}
         placeHolder="사용자 이름"
         onChange={handleFormChange}
       />
       <Input
-        type="text"
+        type="password"
         name="password"
         value={password}
         placeHolder="비밀번호"
