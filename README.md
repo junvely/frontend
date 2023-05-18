@@ -118,6 +118,8 @@ postRepository 에서 include로 전부 참조해서 처리하는 방식으로 �
 ##### 3. multer-s3 와 aws-sdk 를 이용해 사진을 s3 에 업로드 하는 기능을 구현하였는데 this.client.send is not a function 에러가 발생
 
 ```
+기본적으로 photo 에 대한 부분은 default value 에 기본 사진을 넣어 줌으로써 에러를 핸들링 했습니다. 근데 위 에러가 발생했습니다.
+
 => 위의 에러는 multer-s3 와 aws-sdk 의 버전 호환성 문제로 multer-s3 는 3.xxx 버전을, aws-sdk 는 2.xxx 버전을 활용할 때 발생한다.
 
 따라서 multer-s3 를 uninstall 하고 2.xxx 버전으로 받아주면 된다
@@ -131,6 +133,14 @@ npm i multer-s3@^2 --save
 이렇게 하니 바로 정상적으로 작동
 
 ([link](https://stackoverflow.com/questions/72431773/multers3-is-giving-this-client-send-is-not-a-function-error))
+
+```
+##### 4. posts Model 에 likesCount 와 commentsCount 를 추가했다가 다시 제거한 부분```
+=> get posts method 에서 다른 db를 참조하지 않고 데이터를 불러올 수 있다는 부분에서 효율적이라고 생각했었지만,
+
+반대로 likes 를 누르거나 comments 를 작성할 때 마다 posts table 을 참조해 숫자를 increment 해야 하기 때문에 부적합하다고 판단하여
+
+제거하고 다시 설정하게 되었습니다.
 
 ```
 
