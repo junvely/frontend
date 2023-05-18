@@ -2,7 +2,7 @@ import { instance } from "./axios";
 
 const getMainPostsAxios = async () => {
   try {
-    const { data } = await instance.get("/api/main");
+    const { data } = await instance.get("/api/posts/main");
     return data;
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
@@ -13,7 +13,7 @@ const getMainPostsAxios = async () => {
 
 const getRandomPostsAxios = async () => {
   try {
-    const { data } = await instance.get("/api/postsrandom");
+    const { data } = await instance.get("/api/posts/random");
     return data;
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
