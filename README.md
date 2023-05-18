@@ -128,10 +128,9 @@ npm i multer-s3@^2 --save
 ([link](https://stackoverflow.com/questions/72431773/multers3-is-giving-this-client-send-is-not-a-function-error))
 
 ```
-
-
 ```
 
+```
 
 
 <!-- ### 패키지 설치
