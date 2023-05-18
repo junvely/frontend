@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useQuery } from "react-query";
 import { commentRequest, commentDelete } from "../apis/api";
 import { QueryClient, useMutation } from "react-query";
+import { useNavigate } from "react-router";
 
 function Comments({ postId }) {
-  console.log("postId 객체", postId);
-
+  const navigate = useNavigate();
   const { isLoading, isError, data } = useQuery("comments", () =>
     commentRequest(postId)
   );
@@ -54,9 +54,21 @@ function Comments({ postId }) {
         {data.commentsData?.map((item) => (
           <li key={item.commentId}>
             <CommentItem key={item.commentId}>
-              <UserImage src={item.userPhoto} />
+              <UserImage
+                onClick={() => {
+                  navigate(`/users/${item.UserId}`);
+                }}
+                src={item.userPhoto}
+              />
               <UserInfo>
-                <span>{item.nickname}</span>
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    navigate(`/users/${item.UserId}`);
+                  }}
+                >
+                  {item.nickname}
+                </span>
                 <p>{item.comment}</p>
               </UserInfo>
             </CommentItem>
@@ -92,6 +104,11 @@ const UserImage = styled.img`
   height: 35px;
   border-radius: 50%;
   margin-right: 0.5rem;
+  cursor: pointer;
+  overflow: auto;
+  /*   &:hover {
+    transform: scale(1.1);
+  } */
 `;
 
 const UserInfo = styled.div`
@@ -113,6 +130,7 @@ const UserInfo = styled.div`
   }
 `;
 const CommentsContainer = styled.div`
+  margin-left: 1rem;
   margin-top: 1rem;
   max-height: 400px;
   overflow-y: auto;
