@@ -12,6 +12,7 @@ import { postUser } from "../apis/post";
 import { useQuery } from "react-query";
 import SearchToggle from "./SearchToggle";
 import instagram from "../img/instagram.png";
+import DmPage from "../pages/DmPage";
 
 function Sidebar() {
   const userId = sessionStorage.getItem("userId");
@@ -50,8 +51,8 @@ function Sidebar() {
             <MdHomeFilled />
             <TabText>홈</TabText>
           </TabButton>
-          <TabButton>
-            <BiSearch onClick={searchBarToggle} />
+          <TabButton onClick={searchBarToggle}>
+            <BiSearch />
             <TabText>검색</TabText>
           </TabButton>
           <TabButton
@@ -62,7 +63,11 @@ function Sidebar() {
             <AiOutlineCompass />
             <TabText>탐색</TabText>
           </TabButton>
-          <TabButton>
+          <TabButton
+            onClick={() => {
+              navigate("/dm");
+            }}
+          >
             <IoPaperPlaneOutline />
             <TabText>메시지</TabText>
           </TabButton>
@@ -126,7 +131,7 @@ const SidebarContent = styled.div`
 const TabButton = styled.button`
   display: flex;
   align-items: center;
-  padding: 10px 0;
+  padding: 10px 10px;
 
   background-color: transparent;
   border: none;

@@ -8,6 +8,7 @@ import AccountPage from "../pages/AccountPage";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 import RandomPage from "../pages/RandomPage";
+import DmPage from "../pages/DmPage";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
         <Route path="/main/:id" element={<DetailPage />}></Route>
         <Route path="/my" element={<MyPage />}></Route>
         <Route path="/users/:id" element={<UserPage />}></Route>
+        <Route path="/dm" element={<DmPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

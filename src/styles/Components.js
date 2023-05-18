@@ -362,3 +362,61 @@ export const StUserNameCon = styled.div`
     color: #777;
   }
 `;
+
+export const StChatCon = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const StChatInputCon = styled.div`
+  form {
+    width: 80%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+    padding: 0 3%;
+    margin: 0 auto;
+    border-radius: 30px;
+
+    input {
+      width: 70%;
+      line-height: 30px;
+      font-size: 1.1rem;
+      border: none;
+      margin-right: 30px;
+      border-radius: 10px;
+      outline: none;
+      padding: 0 3%;
+    }
+
+    button {
+      width: 15%;
+      line-height: 30px;
+      background-color: ${(props) => props.bgcolor || Colors.buttonBlue};
+      border: none;
+      border-radius: 7px;
+      box-shadow: ${Colors.shadow};
+    }
+  }
+`;
+
+export const StChatListCon = styled.div`
+  padding: 2% 5%;
+`;
+
+export const StChat = styled.span`
+  width: auto;
+  line-height: 30px;
+  text-align: left;
+  color: #fff;
+  font-weight: 600;
+  background-color: ${Colors.buttonBlue};
+  padding: 1% 3%;
+  margin: 1% auto;
+  border-radius: 30px;
+`;
