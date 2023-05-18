@@ -3,8 +3,10 @@ import { followerRequest } from "../apis/user";
 import { useQuery } from "react-query";
 import { styled } from "styled-components";
 import { IoArrowBack } from "react-icons/io5";
+import { useNavigate } from "react-router";
 
 function FollowerModal({ userId, showFollower }) {
+  const navigate = useNavigate();
   const { isLoading, isError, data } = useQuery("follower", () =>
     followerRequest(userId)
   );
@@ -14,7 +16,7 @@ function FollowerModal({ userId, showFollower }) {
   if (isError) {
     return <p>오류가 발생하였습니다!</p>;
   }
-
+  console.log(data);
   return (
     <div>
       <Outside onClick={showFollower} />
@@ -28,7 +30,12 @@ function FollowerModal({ userId, showFollower }) {
           {data?.map((item) => {
             return (
               <li>
-                <FollowItem key={item.nickname}>
+                <FollowItem
+                  onClick={() => {
+                    navigate(`/users/${item.userId}`);
+                  }}
+                  key={item.nickname}
+                >
                   <UserImage src={item.userPhoto} />
                   <UserInfo>
                     <span>{item.nickname}</span>
@@ -80,6 +87,7 @@ const FollowItem = styled.li`
   display: flex;
   align-items: center;
   height: 60px;
+  cursor: pointer;
 `;
 
 const UserImage = styled.img`
