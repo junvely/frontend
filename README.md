@@ -95,6 +95,12 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 => formData는 특수한 객체 형태이기 때문에 formData 안의 키와 값은 console에 찍히지 않는다는 것을 깨닫고, for문으로 formData 내부를 순회하여 키와 값이 있음을 확인하고 서버에 전송할 수 있었다.
 ```
 
+##### 3. 팔로우 버튼 클릭시 새로고침을 해야 팔로우 상태가 변경되는 문제 발생. 
+
+```
+=> 팔로우 API 호출 후에 userRequest 쿼리를 다시 호출 시켜 팔로잉 상태를 업데이트해야한다는 것을 깨닫고, followMutation의 onSuccess 콜백에서 userRequest 쿼리를 다시 호출하도록 변경하여, 팔로우 버튼을 클릭시에 팔로잉 상태가 변경되고, 'userRequest' 쿼리가 다시 호출되어 새로고침하지 않고 즉시 반영되도록 할 수 있었다.
+```
+
 ### BE 트러블 슈팅
 
 ##### 1. follow와 follower를 보여주는 부분에서 코딩 시 의도한 부분의 반대로 작동
