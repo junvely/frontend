@@ -6,7 +6,7 @@ function Story({ width, imageUrl, userId }) {
   const navigate = useNavigate();
 
   return (
-    <StStory width={width} onClick={() => navigate(`/user/${userId}`)}>
+    <StStory width={width} onClick={() => navigate(`/users/${userId}`)}>
       <img src={imageUrl} alt="story-image"></img>
     </StStory>
   );
