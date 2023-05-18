@@ -47,7 +47,7 @@ function Comments({ postId }) {
     const commentId = e.target.dataset.id;
     mutationCommentDelete.mutate({ postId, commentId, authorization });
   }; */
-  console.log("data", data);
+
   return (
     <CommentsContainer>
       <CommentsList>

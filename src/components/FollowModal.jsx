@@ -10,6 +10,10 @@ function FollowModal({ userId, showFollow }) {
   const { isLoading, isError, data } = useQuery("follow", () =>
     followRequest(userId)
   );
+  const handleUserClick = (userId) => {
+    showFollow();
+    navigate(`/users/${userId}`);
+  };
   if (isLoading) {
     return <p>로딩중입니다!</p>;
   }
@@ -31,9 +35,7 @@ function FollowModal({ userId, showFollow }) {
             return (
               <li>
                 <FollowItem
-                  onClick={() => {
-                    navigate(`/users/${item.userId}`);
-                  }}
+                  onClick={() => handleUserClick(item.userId)}
                   key={item.nickname}
                 >
                   <UserImage src={item.userPhoto} />

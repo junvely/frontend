@@ -1,6 +1,6 @@
 import React from "react";
-import { followerRequest } from "../apis/user";
-import { useQuery } from "react-query";
+import { followerRequest, userRequest } from "../apis/user";
+import { QueryClient, useQuery } from "react-query";
 import { styled } from "styled-components";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router";
@@ -10,6 +10,10 @@ function FollowerModal({ userId, showFollower }) {
   const { isLoading, isError, data } = useQuery("follower", () =>
     followerRequest(userId)
   );
+  const handleUserClick = (userId) => {
+    showFollower();
+    navigate(`/users/${userId}`);
+  };
   if (isLoading) {
     return <p>로딩중입니다!</p>;
   }
@@ -31,9 +35,7 @@ function FollowerModal({ userId, showFollower }) {
             return (
               <li>
                 <FollowItem
-                  onClick={() => {
-                    navigate(`/users/${item.userId}`);
-                  }}
+                  onClick={() => handleUserClick(item.userId)}
                   key={item.nickname}
                 >
                   <UserImage src={item.userPhoto} />
