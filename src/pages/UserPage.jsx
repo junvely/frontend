@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router";
 import { userFollow, userRequest } from "../apis/user";
@@ -30,6 +30,7 @@ function UserPage() {
     followMutation.mutate(userId);
     setFollowStatus(!followStatus);
   };
+
   const [showFollowerModal, setShowFollowerModal] = useState(false);
   const [showFollowModal, setShowFollowModal] = useState(false);
 
@@ -58,17 +59,27 @@ function UserPage() {
           <ProfileInfo>
             <Stwrap>
               <UserNickname>{data.nickname}</UserNickname>
-              <FollowBtn onClick={follow}>
-                {data.mine ? "프로필 편집" : followStatus ? "팔로잉" : "팔로우"}
-              </FollowBtn>
+              {data.mine ? (
+                <FollowBtn
+                  onClick={() => {
+                    alert("준비중입니다.");
+                  }}
+                >
+                  프로필 편집
+                </FollowBtn>
+              ) : (
+                <FollowBtn onClick={follow}>
+                  {followStatus ? "팔로잉" : "팔로우"}
+                </FollowBtn>
+              )}
             </Stwrap>
             <Stwrap>
               <Post>게시물 {data.postsCount}</Post>
               <FollowerListSection onClick={showFollower}>
-                팔로워 {data.followCount}
+                팔로워 {data.followerCount}
               </FollowerListSection>
               <FollowerListSection onClick={showFollow}>
-                팔로우 {data.followerCount}
+                팔로우 {data.followCount}
               </FollowerListSection>
             </Stwrap>
           </ProfileInfo>

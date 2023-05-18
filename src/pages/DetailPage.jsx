@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import Comments from "../components/Comments";
-import { commentRequest, commentSubmit, detailRequest } from "../apis/api";
+import { commentSubmit, detailRequest } from "../apis/api";
 import { useNavigate, useParams } from "react-router";
 import { useQuery } from "react-query";
 import Sidebar from "../components/Sidebar";
@@ -14,6 +14,7 @@ import { FaRegComment } from "react-icons/fa";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { GrBookmark } from "react-icons/gr";
 import { HiOutlineHeart } from "react-icons/hi";
+import { isLikeAxios } from "../apis/feed";
 
 function DetailPage() {
   const [comment, setComment] = useState("");
@@ -22,6 +23,7 @@ function DetailPage() {
   // 현재 페이지 URL에서 postId 추출
   const params = useParams();
   const postId = params.id;
+
   const commentSubmitMutation = useMutation(commentSubmit, {
     onSuccess: () => {
       queryClient.invalidateQueries("comments");
@@ -31,6 +33,17 @@ function DetailPage() {
   const { isLoading, isError, data } = useQuery("detail", () =>
     detailRequest(postId)
   );
+
+  const mutation = useMutation(isLikeAxios, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("detail");
+    },
+  });
+  const handleClickLikeButton = () => {
+    mutation.mutate(postId);
+    console.log("좋아요", data.isLiked);
+  };
+
   const followMutation = useMutation(userFollow, {
     onSuccess: () => {
       queryClient.invalidateQueries("detail");
@@ -47,7 +60,7 @@ function DetailPage() {
   if (isError) {
     return <p>오류가 발생하였습니다!</p>;
   }
-  console.log(data);
+
   const commentSubmitButtonHandler = (e) => {
     commentSubmitMutation.mutate({ postId, comment });
   };
@@ -102,10 +115,21 @@ function DetailPage() {
             <Wrap>
               <StButtons>
                 <StLeftCon>
-                  <button>
-                    <HiOutlineHeart style={{ fontSize: "30px" }} />
-                  </button>
-
+                  {data?.isLiked ? (
+                    <button>
+                      <MdFavorite
+                        onClick={handleClickLikeButton}
+                        style={{ color: "#ff3040", fontSize: "30px" }}
+                      />
+                    </button>
+                  ) : (
+                    <button>
+                      <HiOutlineHeart
+                        onClick={handleClickLikeButton}
+                        style={{ fontSize: "30px" }}
+                      />
+                    </button>
+                  )}
                   <button>
                     <FaRegComment
                       style={{
