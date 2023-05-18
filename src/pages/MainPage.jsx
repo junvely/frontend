@@ -33,7 +33,7 @@ function MainPage() {
             <StStoryList>
               {storysData?.data?.map((user) => {
                 return (
-                  <StStoryBox>
+                  <StStoryBox key={user.UserId}>
                     <Story
                       width="66px"
                       imageUrl={user.userPhoto}
@@ -46,7 +46,7 @@ function MainPage() {
             </StStoryList>
             <StFeedList>
               {data?.map((post) => {
-                return <Feed post={post} />;
+                return <Feed post={post} key={post.postId} />;
               })}
             </StFeedList>
           </StFeedCon>

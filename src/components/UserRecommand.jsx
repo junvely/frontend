@@ -17,13 +17,13 @@ function UserRecommand({ user, myProfile }) {
 
   return (
     <ProfileCon
-      myProfile={myProfile}
-      onClick={() => navigate(`/user/${UserId}`)}
+      myprofile={myProfile && "true"}
+      onClick={() => navigate(`/users/${UserId}`)}
     >
       <StProfileImage width={myProfile ? "66px" : "44px"}>
         <img src={userPhoto} alt="story-image"></img>
       </StProfileImage>
-      <StUserName myProfile={myProfile}>
+      <StUserName myprofile={myProfile && "true"}>
         <span> {nickname}</span>
         <p> {myProfile ? name : "회원님을 위한 추천"}</p>
       </StUserName>
