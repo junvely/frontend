@@ -2,7 +2,7 @@ import { instance } from "../axios";
 
 const loginAxios = async (payload) => {
   try {
-    const { data } = await instance.post("/api/login", payload);
+    const { data } = await instance.post("/api/auth/login", payload);
     return data;
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
@@ -13,7 +13,7 @@ const loginAxios = async (payload) => {
 
 const tokenVerifyAxios = async () => {
   try {
-    await instance.post("/api/rtVerify");
+    await instance.post("/api/auth/rtVerify");
   } catch (error) {
     const errorMessage = error.response.data.errorMessage;
     console.log(errorMessage);
