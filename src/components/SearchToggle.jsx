@@ -66,7 +66,7 @@ function SearchToggle({ isSearchOpen }) {
           {searchList?.users?.map((search) => {
             return (
               <div key={search.userId}>
-                <StUserCon onClick={() => navigate(`/posts/${search.UserId}`)}>
+                <StUserCon onClick={() => navigate(`/users/${search.userId}`)}>
                   <Story
                     width="54px"
                     imageUrl={search.userPhoto}
