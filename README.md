@@ -39,6 +39,8 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 ## ⚙️ ERD
 
+![ERD](https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c?pvs=4#4c3aefd81a974540a8c0635ea533b798)
+
 <br>
 
 ## ✨ 프로젝트 기능 정리
@@ -90,6 +92,46 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 ```
 
 ### BE 트러블 슈팅
+
+##### 1.  follow와 follower를 보여주는 부분에서 코딩 시 의도한 부분의 반대로 작동
+
+```
+=> ERD작성 시 Follows table에서 Users과의 관계 설정 시 Follows Table UserId와 followsUserId 가 각각 Users Table의 UserId와 각각 1:N관계로 설정되어있었음. 
+그로 인해 HasMany와 belongs to를 Model에 입력 시 같은 종속관계일 때에는 아래에 쓴 관계가 우선시 되는 것을 알게 되어 수정해서 완성시킴
+```
+
+##### 2. 게시물 조회 시 참조해야 할 table이 많아짐
+
+```
+=> 메인페이지 조회 부분에서 Posts Table에 Users, Follows, Comments table을 모두 참조해야 할 상황
+
+처음에는 postService부분에서 postRepository로 method를 여러가지를, 여러 번 조회하였으나 데이터와의 통신이 많으면 비효율적일 것으로 예상됨
+
+postRepository 에서 include로 전부 참조해서 처리하는 방식으로 변경
+
+```
+##### 3. multer-s3 와 aws-sdk 를 이용해 사진을 s3 에 업로드 하는 기능을 구현하였는데 this.client.send is not a function 에러가 발생
+
+```
+=> 위의 에러는 multer-s3 와 aws-sdk 의 버전 호환성 문제로 multer-s3 는 3.xxx 버전을, aws-sdk 는 2.xxx 버전을 활용할 때 발생한다.
+
+따라서 multer-s3 를 uninstall 하고 2.xxx 버전으로 받아주면 된다
+
+## 해결
+
+npm uninstall multer-s3
+
+npm i multer-s3@^2 --save
+
+이렇게 하니 바로 정상적으로 작동
+
+([link](https://stackoverflow.com/questions/72431773/multers3-is-giving-this-client-send-is-not-a-function-error))
+
+```
+```
+
+```
+
 
 <!-- ### 패키지 설치
 
