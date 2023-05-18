@@ -30,11 +30,12 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 <br>
 
 ## 🖥️ 페이지 디자인
-<img src="./public/img/로그인.jpg" />
+
+<img src="/public/img/로그인.jpg" />
 
 #### 메인 페이지
-<img src="./public/img/메인페이지.jpg" />
 
+<img src="/public/img/메인페이지.jpg" />
 
 #### 로그인 페이지
 
@@ -96,10 +97,10 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 
 ### BE 트러블 슈팅
 
-##### 1.  follow와 follower를 보여주는 부분에서 코딩 시 의도한 부분의 반대로 작동
+##### 1. follow와 follower를 보여주는 부분에서 코딩 시 의도한 부분의 반대로 작동
 
 ```
-=> ERD작성 시 Follows table에서 Users과의 관계 설정 시 Follows Table UserId와 followsUserId 가 각각 Users Table의 UserId와 각각 1:N관계로 설정되어있었음. 
+=> ERD작성 시 Follows table에서 Users과의 관계 설정 시 Follows Table UserId와 followsUserId 가 각각 Users Table의 UserId와 각각 1:N관계로 설정되어있었음.
 그로 인해 HasMany와 belongs to를 Model에 입력 시 같은 종속관계일 때에는 아래에 쓴 관계가 우선시 되는 것을 알게 되어 수정해서 완성시킴
 ```
 
@@ -113,6 +114,7 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 postRepository 에서 include로 전부 참조해서 처리하는 방식으로 변경
 
 ```
+
 ##### 3. multer-s3 와 aws-sdk 를 이용해 사진을 s3 에 업로드 하는 기능을 구현하였는데 this.client.send is not a function 에러가 발생
 
 ```
@@ -131,10 +133,10 @@ npm i multer-s3@^2 --save
 ([link](https://stackoverflow.com/questions/72431773/multers3-is-giving-this-client-send-is-not-a-function-error))
 
 ```
-```
 
 ```
 
+```
 
 <!-- ### 패키지 설치
 
