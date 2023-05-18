@@ -30,8 +30,11 @@ https://www.notion.so/S-A-7e9903d1733144afad46f8674af1015c
 <br>
 
 ## 🖥️ 페이지 디자인
+<img src="./public/img/로그인.jpg" />
 
 #### 메인 페이지
+<img src="./public/img/메인페이지.jpg" />
+
 
 #### 로그인 페이지
 
