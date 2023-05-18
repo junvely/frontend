@@ -125,12 +125,13 @@ const Stwrap = styled.div`
   gap: 25px;
 `;
 const ProfilePicture = styled.img`
-  width: 170px;
-  height: 170px;
+  width: 160px;
+  height: 160px;
   background-size: cover;
   background-position: center;
   border-radius: 50%;
   margin: 1rem;
+  border: 1px solid #d8d8d8;
 `;
 
 const ProfileInfo = styled.div`
@@ -169,6 +170,7 @@ const PostListItem = styled.div`
   width: calc(33.33% - 10px);
   height: 379px;
   margin: 5px;
+  min-width: 379px;
 `;
 const PostImage = styled.img`
   width: 100%;

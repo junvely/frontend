@@ -11,6 +11,7 @@ import PostingModal from "./PostingModal";
 import { postUser } from "../apis/post";
 import { useQuery } from "react-query";
 import SearchToggle from "./SearchToggle";
+import instagram from "../img/instagram.png";
 
 function Sidebar() {
   const userId = sessionStorage.getItem("userId");
@@ -33,7 +34,7 @@ function Sidebar() {
         <SearchToggle isSearchOpen={isSearchOpen}></SearchToggle>
       )}
       <SidebarContainer>
-        <Logo src="로고 이미지 URL" alt="로고" />
+        <Logo src={instagram} alt="로고" />
         <SidebarContent>
           <TabButton
             onClick={() => {
@@ -79,7 +80,7 @@ function Sidebar() {
           ) : (
             <TabButton
               onClick={() => {
-                navigate(`/posts/${userId}`);
+                navigate(`/users/${userId}`);
               }}
             >
               <UserImage src={data.userPhoto} />
@@ -104,7 +105,9 @@ const SidebarContainer = styled.div`
   position: relative;
 `;
 
-const Logo = styled.img``;
+const Logo = styled.img`
+  width: 170px;
+`;
 
 const SidebarContent = styled.div`
   display: flex;
@@ -116,10 +119,12 @@ const SidebarContent = styled.div`
 const TabButton = styled.button`
   display: flex;
   align-items: center;
-  padding-bottom: 30px;
+  padding: 10px 0;
+
   background-color: transparent;
   border: none;
   font-size: 25px;
+  margin-bottom: 30px;
 
   &:hover {
     background-color: #ececec;
@@ -136,8 +141,7 @@ const LogoutButton = styled.button`
   margin-top: auto;
 `;
 const UserImage = styled.img`
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
   width: 27px;
   height: 27px;
   border-radius: 50%;

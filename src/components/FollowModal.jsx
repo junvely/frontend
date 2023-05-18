@@ -30,7 +30,12 @@ function FollowModal({ userId, showFollow }) {
           {data?.map((item) => {
             return (
               <li>
-                <FollowItem key={item.nickname}>
+                <FollowItem
+                  onClick={() => {
+                    navigate(`/users/${item.userId}`);
+                  }}
+                  key={item.nickname}
+                >
                   <UserImage src={item.userPhoto} />
                   <UserInfo>
                     <span>{item.nickname}</span>
@@ -82,6 +87,7 @@ const FollowItem = styled.li`
   display: flex;
   align-items: center;
   height: 60px;
+  cursor: pointer;
 `;
 
 const UserImage = styled.img`

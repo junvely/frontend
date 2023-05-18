@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import Comments from "../components/Comments";
 import { commentRequest, commentSubmit, detailRequest } from "../apis/api";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useQuery } from "react-query";
 import Sidebar from "../components/Sidebar";
 import { StSideCon } from "../styles/Pages";
@@ -18,6 +18,7 @@ import { HiOutlineHeart } from "react-icons/hi";
 function DetailPage() {
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   // 현재 페이지 URL에서 postId 추출
   const params = useParams();
   const postId = params.id;
@@ -59,18 +60,39 @@ function DetailPage() {
       <ContainerWrap>
         <Container>
           <PostImageWrapper>
-            <PostImage src={data.postPhoto} />
+            <PostImage
+              style={{
+                backgroundImage: `url(${data.postPhoto})`,
+              }}
+            />
           </PostImageWrapper>
           <ContentWrapper>
             <UserInfo style={{ borderBottom: "1px solid lightgray" }}>
-              <UserImage src={data.userPhoto} />
-              <span>{data.nickname}</span>
+              <UserImage
+                onClick={() => {
+                  navigate(`/users/${data.UserId}`);
+                }}
+                src={data.userPhoto}
+              />
+              <span
+                onClick={() => {
+                  navigate(`/users/${data.UserId}`);
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                {data.nickname}
+              </span>
               <FollowBtn onClick={follow}>
-                {data.follow ? "팔로잉" : "팔로우"}
+                {data.mine ? <></> : data.follow ? "팔로잉" : "팔로우"}
               </FollowBtn>
             </UserInfo>
             <PostContent>
-              <UserInfo>
+              <UserInfo
+                onClick={() => {
+                  navigate(`/users/${data.UserId}`);
+                }}
+                style={{ cursor: "pointer" }}
+              >
                 <UserImage src={data.userPhoto} />
                 <span>{data.nickname}</span>
               </UserInfo>
@@ -137,16 +159,18 @@ const PostImageWrapper = styled.div`
   height: 100%;
   overflow: hidden;
 `;
-const PostImage = styled.img`
+const PostImage = styled.div`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
 `;
 const UserImage = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin: 1rem;
+  cursor: pointer;
 `;
 
 const UserInfo = styled.div`
@@ -237,7 +261,7 @@ const Container = styled.div`
 
 const ContentWrapper = styled.div`
   flex-basis: 33.33%;
-  padding-top: 1rem;
+
   min-height: 100%;
   overflow-y: auto;
   box-sizing: border-box;
