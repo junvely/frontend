@@ -135,7 +135,9 @@ npm i multer-s3@^2 --save
 ([link](https://stackoverflow.com/questions/72431773/multers3-is-giving-this-client-send-is-not-a-function-error))
 
 ```
-##### 4. posts Model 에 likesCount 와 commentsCount 를 추가했다가 다시 제거한 부분```
+##### 4. posts Model 에 likesCount 와 commentsCount 를 추가했다가 다시 제거한 부분
+
+```
 => get posts method 에서 다른 db를 참조하지 않고 데이터를 불러올 수 있다는 부분에서 효율적이라고 생각했었지만,
 
 반대로 likes 를 누르거나 comments 를 작성할 때 마다 posts table 을 참조해 숫자를 increment 해야 하기 때문에 부적합하다고 판단하여
