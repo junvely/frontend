@@ -41,7 +41,6 @@ function DetailPage() {
   });
   const handleClickLikeButton = () => {
     mutation.mutate(postId);
-    console.log("좋아요", data.isLiked);
   };
 
   const followMutation = useMutation(userFollow, {
