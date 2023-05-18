@@ -235,7 +235,7 @@ export const StUserListCon = styled.div`
 // UserRecommand
 export const ProfileCon = styled(StFlexCon)`
   padding: 8px 16px;
-  margin: ${(props) => props.myProfile && "16px 0 10px"};
+  margin: ${(props) => props.myprofile && "16px 0 10px"};
   align-items: center;
   cursor: pointer;
 
@@ -254,7 +254,7 @@ export const StProfileImage = styled(StStory)`
 
 export const StUserName = styled.div`
   width: 63.5%;
-  padding-left: ${(props) => (props.myProfile ? "15px" : 0)};
+  padding-left: ${(props) => (props.myprofile ? "15px" : 0)};
 
   span {
     font-size: 14px;
@@ -263,7 +263,7 @@ export const StUserName = styled.div`
   }
 
   p {
-    font-size: ${(props) => (props.myProfile ? "14px" : "12px")};
+    font-size: ${(props) => (props.myprofile ? "14px" : "12px")};
     color: #777;
   }
 `;

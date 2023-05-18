@@ -51,7 +51,7 @@ const searchUserAxios = async (value) => {
 
 const randomUserAxios = async () => {
   try {
-    const { data } = await instance.get("/api/usersrandom");
+    const { data } = await instance.get("/api/users/random");
     return data;
   } catch (error) {
     throw error;

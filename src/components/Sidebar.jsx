@@ -34,7 +34,13 @@ function Sidebar() {
         <SearchToggle isSearchOpen={isSearchOpen}></SearchToggle>
       )}
       <SidebarContainer>
-        <Logo src={instagram} alt="로고" />
+        <Logo
+          src={instagram}
+          alt="로고"
+          onClick={() => {
+            navigate("/main");
+          }}
+        />
         <SidebarContent>
           <TabButton
             onClick={() => {
@@ -107,6 +113,7 @@ const SidebarContainer = styled.div`
 
 const Logo = styled.img`
   width: 170px;
+  cursor: pointer;
 `;
 
 const SidebarContent = styled.div`
