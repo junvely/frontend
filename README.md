@@ -145,8 +145,14 @@ npm i multer-s3@^2 --save
 제거하고 다시 설정하게 되었습니다.
 
 ```
+##### 4. front 에서 backend 에 데이터를 header 에 담아서 전송할 때 모드 소문자로 치환되는 부분
 
 ```
+
+accessToken 과 refreshToken 을 받을 때, front 에서 보내준 값과 다르게 모두 소문자로 들어가는 것을 확인했습니다.
+
+그래서 req 로 백엔드에서 받을 때 고려해야했습니다.
+
 
 ```
 
