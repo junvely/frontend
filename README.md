@@ -189,7 +189,7 @@ yarn tailwind init -p
 
 ```
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {},
   },
